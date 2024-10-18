@@ -1,4 +1,6 @@
-package org.example;
+package org.example.products;
+
+import org.example.interfaces.Discount;
 
 public abstract class Product implements Discount, Comparable<Product>
 {

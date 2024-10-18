@@ -1,5 +1,10 @@
 package org.example;
 
+import org.example.products.Accessories;
+import org.example.products.Clothes;
+import org.example.products.Product;
+import org.example.products.Shoes;
+
 public class App
 {
     public static void main(String[] args)
