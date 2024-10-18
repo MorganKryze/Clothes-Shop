@@ -1,10 +1,12 @@
-![screenshot](./docs/assets/img/screenshot.png)
+![screenshot](./docs/assets/img/presentation.jpg)
 
 ## Overview
 
-> Add a short description of the project here.
+> Java x Postgres clothes shop interface
 
 Add important information about the project here.
+
+docker exec -it clothes-shope-db psql -U postgres
 
 ## Getting Started
 
