@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 import org.example.products.Accessories;
 import org.example.products.Clothes;
-import org.example.products.Product;
 import org.example.products.Shoes;
 
 public class ProductRepositoryImplementation {
@@ -17,8 +16,8 @@ public class ProductRepositoryImplementation {
     private static final String USER = "postgres";
     private static final String PASSWORD = "gSswtP@jiWjArvTY**15ALjasSzOVgE!iENWz9y0Ip5&JSw^";
 
-    public static Product getProductByUUID(String uuid) {
-        String query = "SELECT * FROM Product WHERE uuid = ?";
+    public static Clothes getClothesByUUID(String uuid) {
+        String query = "SELECT * FROM Product WHERE id = ? AND category = 'clothes'";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -27,48 +26,79 @@ public class ProductRepositoryImplementation {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                String category = resultSet.getString("category");
-                Product product = null;
-
-                switch (category) {
-                    case "shoes":
-                        product = new Shoes(
-                                resultSet.getString("uuid"),
-                                resultSet.getString("name"),
-                                resultSet.getString("icon_path"),
-                                resultSet.getInt("price"),
-                                resultSet.getInt("cost"),
-                                resultSet.getInt("stock"),
-                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
-                                resultSet.getInt("shoe_size"));
-                        break;
-                    case "clothes":
-                        product = new Clothes(
-                                resultSet.getString("uuid"),
-                                resultSet.getString("name"),
-                                resultSet.getString("icon_path"),
-                                resultSet.getInt("price"),
-                                resultSet.getInt("cost"),
-                                resultSet.getInt("stock"),
-                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
-                                resultSet.getInt("clothing_size"));
-                        break;
-                    case "accessories":
-                        product = new Accessories(
-                                resultSet.getString("uuid"),
-                                resultSet.getString("name"),
-                                resultSet.getString("icon_path"),
-                                resultSet.getInt("price"),
-                                resultSet.getInt("cost"),
-                                resultSet.getInt("stock"),
-                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")));
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown category: " + category);
-                }
+                Clothes clothes = new Clothes(
+                        resultSet.getString("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("icon_path"),
+                        resultSet.getInt("price"),
+                        resultSet.getInt("cost"),
+                        resultSet.getInt("stock"),
+                        CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
+                        resultSet.getInt("clothing_size"));
 
                 resultSet.close();
-                return product;
+                return clothes;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Shoes getShoesByUUID(String uuid) {
+        String query = "SELECT * FROM Product WHERE id = ? AND category = 'shoes'";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, uuid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Shoes shoes = new Shoes(
+                        resultSet.getString("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("icon_path"),
+                        resultSet.getInt("price"),
+                        resultSet.getInt("cost"),
+                        resultSet.getInt("stock"),
+                        CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
+                        resultSet.getInt("shoe_size"));
+
+                resultSet.close();
+                return shoes;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Accessories getAccessoriesByUUID(String uuid) {
+        String query = "SELECT * FROM Product WHERE id = ? AND category = 'accessories'";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, uuid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Accessories accessories = new Accessories(
+                        resultSet.getString("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("icon_path"),
+                        resultSet.getInt("price"),
+                        resultSet.getInt("cost"),
+                        resultSet.getInt("stock"),
+                        CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")));
+
+                resultSet.close();
+                return accessories;
             }
 
         } catch (SQLException e) {
