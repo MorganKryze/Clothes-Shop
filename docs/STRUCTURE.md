@@ -28,7 +28,7 @@ Clothes-Shop
 
 This directory contains the documentation of the project including this very file, the architecture diagram of the database and the assets.
 
-![diagram](./docs/assets/img/architecture.png)
+![diagram](./assets/img/architecture.png)
 
 ## `src/app`
 
