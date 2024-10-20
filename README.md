@@ -1,12 +1,12 @@
-![screenshot](./docs/assets/img/presentation.jpg)
+![presentation](./docs/assets/img/presentation.jpg)
 
 ## Overview
 
 > Java x Postgres clothes shop interface
 
-Add important information about the project here.
+This project is a simple clothes shop interface made with JavaFX and Postgres.
 
-docker exec -it clothes-shope-db psql -U postgres
+![demo](./docs/assets/img/demo.gif)
 
 ## Getting Started
 
@@ -16,81 +16,79 @@ docker exec -it clothes-shope-db psql -U postgres
   - [Setting up](#setting-up)
     - [Prerequisites](#prerequisites)
     - [Install](#install)
-    - [Usage](#usage)
     - [Build \& Run](#build--run)
-  - [Troubleshooting](#troubleshooting)
   - [Supported platforms](#supported-platforms)
   - [Supported languages](#supported-languages)
   - [Future improvements](#future-improvements)
-  - [Contributing](#contributing)
   - [License](#license)
 
 ### Documentation
 
-Provide where to find to the documentation of the project. (ex: [Structure of the project](./docs/STRUCTURE.md))
-
-It may include a link to an important [reference](https://example.com).
+Find [here](./docs/STRUCTURE.md) the structure of the project.
 
 ### Setting up
 
 #### Prerequisites
 
-- Define tools and libraries that are required to run the project with the version number.
-- If available, provide a link to the installation guide.
-- You may also add concepts or knowledge that are required to understand the project.
+- JDK installed
+- Gradle installed (8.10.1)
+- git installed
+- Docker & Docker Compose installed
 
 #### Install
 
-Details here explicit instructions to install the project.
+First clone the project:
 
-Here are the info blocks available for github markdown:
-
-> [!NOTE]
-> Do not hesitate to add a note if necessary.
-
-> [!TIP]
-> Do not hesitate to add a tip if necessary.
-
-> [!WARNING]
-> Do not hesitate to add a warning if necessary.
-
-> [!IMPORTANT]
-> Do not hesitate to add an important note if necessary.
-
-> [!CAUTION]
-> Do not hesitate to add a caution if necessary.
-
-#### Usage
-
-Detail here the instructions to use the project.
+```bash
+git clone https://github.com/MorganKryze/Clothes-Shop.git
+```
 
 #### Build & Run
 
-Detail here the instructions to build and run the project.
+Go to the project directory:
 
-### Troubleshooting
+```bash
+cd Clothes-Shop/src/
+```
 
-Detail here the troubleshooting of the project.
+Install the dependencies:
+
+```bash
+gradle build
+```
+
+Move to the database directory:
+
+```bash
+cd database/
+```
+
+Launch the postgres database:
+
+```bash
+docker-compose up -d
+```
+
+Finally, run the project:
+
+```bash
+cd ../
+gradle run
+```
 
 ### Supported platforms
 
-- Precise here the platforms that are supported by the project.
-- If available, provide a link to the installation guide.
-- If in testing, do not hesitate to mention it.
+- All JavaFX supported platforms.
 
 ### Supported languages
 
-- Precise here the languages that are supported by the project.
-- If necessary, precise if some languages needs to be checked.
+- English.
 
 ### Future improvements
 
-- Precise here the future improvements that are planned for the project.
-- ~~Imporvement done can be styled like this.~~
-
-### Contributing
-
-If you want to contribute to the project, you can follow the steps described in the [CONTRIBUTING](./.github/CONTRIBUTING) file.
+- Link the backend with the frontend.
+- Add discount button.
+- Add number selector.
 
 ### License
 
