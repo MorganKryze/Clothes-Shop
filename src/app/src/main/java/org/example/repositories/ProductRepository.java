@@ -1,6 +1,6 @@
 package org.example.repositories;
 
-public class ProductRepository {
+public interface ProductRepository {
 
     
 
