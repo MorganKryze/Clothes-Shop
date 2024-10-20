@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox fx:id="box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group.artifact.MiniClothesController">
+   <children>
+      <ImageView fx:id="image" fitHeight="139.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@batman.jpg" />
+         </image>
+      </ImageView>
+      <VBox fx:id="Vbx" prefHeight="139.0" prefWidth="232.0">
+         <children>
+            <Label fx:id="ClotheName" alignment="CENTER" prefHeight="50.0" prefWidth="203.0" text="Winter Dress">
+               <font>
+                  <Font name="Agency FB Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="ClotheDescription" prefHeight="89.0" prefWidth="203.0" text="  Number : 1&#10;  Purchase Price : 10000&#10;  Sell Price : 1000000&#10;  Discount Price : 700000&#10;  Stock : 1" />
+         </children>
+      </VBox>
+   </children>
+</HBox>
