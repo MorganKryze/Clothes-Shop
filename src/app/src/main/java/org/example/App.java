@@ -7,7 +7,5 @@ public class App {
     public static void main(String[] args) {
         Company test = CompanyRepositoryImplementation.getCompanyByName("Clothes shop");
 
-        System.out.println(test.getName());
-
     }
 }
