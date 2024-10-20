@@ -36,7 +36,7 @@ public class Shoes extends Product implements Discountable {
     }
 
     private boolean isSizeValid(int size) {
-        return size >= 34 && size <= 54 && size % 2 == 0;
+        return size >= 36 && size <= 50 && size % 2 == 0;
     }
 
     @Override

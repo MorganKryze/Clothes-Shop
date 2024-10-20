@@ -4,7 +4,7 @@ import org.example.interfaces.Discountable;
 
 public class Clothes extends Product implements Discountable {
     private static double discountPercentage = 0.7;
-    private int size;
+    private int clothingSize;
 
     public Clothes(String uuid, String name, int price, int cost, int stock, Company company, int size) {
         super(uuid, name, price, cost, stock, company);
@@ -12,15 +12,15 @@ public class Clothes extends Product implements Discountable {
             if (isSizeValid(size) == false) {
                 throw new IllegalArgumentException("wrong size!");
             }
-            this.size = size;
+            this.clothingSize = size;
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public int getSize() {
-        return size;
+    public int getClothingSize() {
+        return clothingSize;
     }
 
     public void updateSize(int size) {
@@ -28,7 +28,7 @@ public class Clothes extends Product implements Discountable {
             System.out.println("Wrong size!");
             return;
         }
-        this.size = size;
+        this.clothingSize = size;
 
         // TODO : try and catch + repo
     }
@@ -60,6 +60,6 @@ public class Clothes extends Product implements Discountable {
 
     @Override
     public String toString() {
-        return super.toString() + ", size=" + getSize();
+        return super.toString() + ", size=" + getClothingSize();
     }
 }
