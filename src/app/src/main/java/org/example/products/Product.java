@@ -1,89 +1,185 @@
 package org.example.products;
 
-import org.example.interfaces.Discount;
-
-public abstract class Product implements Discount, Comparable<Product>
-{
-    private static int count = 1;
-    private static double Capital = 1000000;
-    private static double income = 0;
-    private static double cost = 0;
-
-
-    private int number;
+public abstract class Product {
+    private String uuid;
     private String name;
-    private double purchase_price;
-    private double sell_price;
-    private double discount_price;
-    private int nbItems;
+    private String iconPath;
+    private int price;
+    private int cost;
+    private int stock;
+    private Company company;
 
-    public Product(String name, double purchase_price, double sell_price)
-    {
-        try
-        {
+    public Product(String uuid, String name, int price, int cost, int stock, Company company) {
+        try {
+            this.uuid = uuid;
+            if (name == null) {
+                throw new IllegalArgumentException("Name cannot be null.");
+            } else if (name.isEmpty()) {
+                throw new IllegalArgumentException("Name cannot be empty.");
+            } else if (name.isBlank()) {
+                throw new IllegalArgumentException("Name cannot be blank.");
+            } else {
+                for (int i = 0; i < name.length(); i++) {
+                    if (Character.isDigit(name.charAt(i))) {
+                        throw new IllegalArgumentException("Name cannot contain digits.");
+                    }
+                }
+            }
             this.name = name;
-            if(purchase_price < 0) {throw new IllegalArgumentException("Negative price!");}
-            this.purchase_price = purchase_price;
-            if(sell_price < 0) {throw new IllegalArgumentException("Negative price!");}
-            this.sell_price = sell_price;
-            this.nbItems = 0;
-            this.discount_price = 0;
-            this.number = count;
-            count++;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
 
-    }
+            if (price < 0 || cost < 0 || stock < 0) {
+                throw new IllegalArgumentException("No negative values allowed.");
+            }
+            this.cost = cost;
+            this.price = price;
+            this.stock = stock;
+            this.company = company;
 
-    public static int getCount() { return count; }
-    public static double getCapital() { return Capital; }
-    public static double getIncome() { return income; }
-    public static double getCost() { return cost; }
-    public int getNumber() { return number; }
-    public String getName(){ return name; }
-    public double getPurchase_price() { return purchase_price; }
-    public double getSell_price() { return sell_price; }
-    public double getDiscount_price() { return discount_price; }
-    public int getNbItems() { return nbItems; }
-
-    public static void setCount(int count) { Product.count = count; }
-    public static void setCapital(double capital) { Product.Capital = capital; }
-    public static void setIncome(double income) { Product.income = income; }
-    public static void setCost(double cost) { Product.cost = cost; }
-    public void setNumber(int number) { this.number = number; }
-    public void setName(String newName) { this.name = newName; }
-    public void setPurchasePrice(double purchase_price) { try { if (purchase_price < 0) { throw new IllegalArgumentException("Negative price!"); } this.purchase_price = purchase_price; } catch(IllegalArgumentException e) { System.out.println(e.getMessage()); } }
-    public void setSell_price(double sell_price) { try { if (sell_price < 0) { throw new IllegalArgumentException("Negative price!"); } this.sell_price = sell_price; } catch(IllegalArgumentException e) { System.out.println(e.getMessage()); } }
-    public void setDiscount_price(double discount_price) { try { if (discount_price < 0) { throw new IllegalArgumentException("Negative price!"); } this.discount_price = discount_price; } catch(IllegalArgumentException e) { System.out.println(e.getMessage()); } }
-    public void setNbItems(int nbItems) { try { if (nbItems < 0) { throw new IllegalArgumentException("Negative items number!"); } this.nbItems = nbItems; } catch(IllegalArgumentException e) { System.out.println(e.getMessage()); } }
-
-    @Override
-    public String toString() {return "Product " + name + ": number=" + number + ", purchase_price=" + purchase_price + ", sell_price=" + sell_price + ", discount_price=" + discount_price + ", nbItems=" + nbItems; }
-
-    public void sell(int nbItems)
-    {
-        try
-        {
-            if(nbItems > this.nbItems) { throw new IllegalArgumentException("Product Unavailable");}
-            this.nbItems -= nbItems;
-            Product.income += nbItems*this.sell_price;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void purchase(int nbItems)
-    {
-        this.nbItems += nbItems;
-        Product.cost += nbItems*this.purchase_price;
+    public String getUuid() {
+        return uuid;
     }
 
-    public abstract void applyDiscount();
+    public String getName() {
+        return name;
+    }
+
+    public void updateName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null.");
+        } else if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty.");
+        } else if (name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be blank.");
+        } else {
+            for (int i = 0; i < name.length(); i++) {
+                if (Character.isDigit(name.charAt(i))) {
+                    throw new IllegalArgumentException("Name cannot contain digits.");
+                }
+            }
+        }
+        this.name = name;
+
+        // TODO : try and catch + repo
+    }
+
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public void updateIconPath(String iconPath) {
+        this.iconPath = iconPath;
+
+        // TODO : try and catch + repo
+    }
+
+    public double getDoublePrice() {
+        return price / 100.0;
+    }
+
+    public int getIntPrice() {
+        return price;
+    }
+
+    public double getCost() {
+        return cost / 100.0;
+    }
+
+    public int updateCost(int cost) {
+        try {
+            if (cost < 0) {
+                throw new IllegalArgumentException("Negative price!");
+            }
+            this.cost = cost;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return this.cost;
+
+        // TODO : try and catch + repo
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void updateStock(int items) {
+        try {
+            if (items < 0) {
+                throw new IllegalArgumentException("Negative items number.");
+            }
+            this.stock = items;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // TODO : try and catch + repo
+    }
+
+    public void addToStock(int items) {
+        try {
+            if (items < 0) {
+                throw new IllegalArgumentException("Negative items number.");
+            }
+            this.stock += items;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // TODO : try and catch + repo
+    }
+
+    public void removeFromStock(int items) {
+        try {
+            if (items < 0) {
+                throw new IllegalArgumentException("Negative items number.");
+            } else if (items > this.stock) {
+                throw new IllegalArgumentException("Not enough items in stock.");
+            }
+            this.stock -= items;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // TODO : try and catch + repo
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void updateCompany(Company company) {
+        this.company = company;
+
+        // TODO : try and catch + repo
+    }
+
+    public void sell(int numberOfItems) {
+        try {
+            removeFromStock(numberOfItems);
+            company.addIncome(numberOfItems * getIntPrice());
+
+            // TODO : try and catch + repo
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void purchase(int numberOfItems) {
+        addToStock(numberOfItems);
+        company.addCosts(numberOfItems * this.cost);
+
+        // TODO : try and catch + repo
+    }
 
     @Override
-    public int compareTo(Product other)
-    {
-        return Double.compare(this.getSell_price(), other.getSell_price());
+    public String toString() {
+        return String.format("Product %s: number=%s, purchase_price=%s, sell_price=%s, nbItems=%s",
+                name, uuid, cost, price, stock);
     }
+
 }
