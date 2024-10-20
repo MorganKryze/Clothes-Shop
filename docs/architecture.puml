@@ -1,0 +1,21 @@
+@startuml architecture
+
+entity Product {
+    + id: UUID
+    + name: String
+    + category: String
+    + description: String
+    + price: Integer
+    + discounted_price: Integer
+    + cost: Integer
+    + stock: Integer
+}
+
+entity Company {
+    + name: String
+    + capital: Integer
+    + income: Integer
+    + costs: Integer
+}
+
+@enduml
