@@ -1,39 +1,67 @@
 package org.example.products;
 
-public class Shoes extends Product
-{
+import org.example.interfaces.Discountable;
+
+public class Shoes extends Product implements Discountable {
+    private static double discountPercentage = 0.8;
     private int shoeSize;
 
-    public Shoes(String name, double purchase_price, double sell_price, int shoeSize)
-    {
-        super(name, purchase_price, sell_price);
-        try
-        {
-            if(!correct_value(shoeSize)) {throw new IllegalArgumentException("wrong size!");}
+    public Shoes(String uuid, String name, int price, int cost, int stock, Company company, int shoeSize) {
+        super(uuid, name, price, cost, stock, company);
+        try {
+            if (!isSizeValid(shoeSize)) {
+                throw new IllegalArgumentException("wrong size!");
+            }
             this.shoeSize = shoeSize;
-        } catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public int getShoeSize() { return shoeSize; }
-    public void setShoeSize(int shoeSize) { try { if(correct_value(shoeSize) == false) { throw new IllegalArgumentException("wrong size!"); } this.shoeSize = shoeSize; } catch(IllegalArgumentException e) { System.out.println(e.getMessage()); } }
+    public int getShoeSize() {
+        return shoeSize;
+    }
 
-    @Override
-    public String toString() { return super.toString() + ", shoeSize=" + getShoeSize(); }
+    public void updateShoeSize(int shoeSize) {
+        try {
+            if (isSizeValid(shoeSize) == false) {
+                throw new IllegalArgumentException("wrong size!");
+            }
+            this.shoeSize = shoeSize;
 
-    private boolean correct_value(int size)
-    {
-        boolean retour = true;
-        if (size < 36) {retour = false;}
-        if (size > 50) {retour = false;}
-        return retour;
+            // TODO : try and catch + repo
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private boolean isSizeValid(int size) {
+        return size >= 34 && size <= 54 && size % 2 == 0;
     }
 
     @Override
-    public void applyDiscount()
-    {
-        setDiscount_price(getSell_price()*0.8);
+    public int getIntPrice() {
+        if (super.getCompany().isDiscountEnabled()) {
+            return applyDiscount(super.getIntPrice());
+        }
+        return super.getIntPrice();
+    }
+
+    @Override
+    public double getDoublePrice() {
+        if (super.getCompany().isDiscountEnabled()) {
+            return applyDiscount(super.getIntPrice()) / 100.0;
+        }
+        return super.getDoublePrice();
+    }
+
+    @Override
+    public int applyDiscount(int price) {
+        return (int) (price * discountPercentage);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", shoeSize=" + getShoeSize();
     }
 }

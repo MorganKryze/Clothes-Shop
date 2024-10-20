@@ -3,7 +3,7 @@ package org.example.products;
 import org.example.interfaces.Discountable;
 
 public class Clothes extends Product implements Discountable {
-    private static double discountPercentage = 0.5;
+    private static double discountPercentage = 0.7;
     private int size;
 
     public Clothes(String uuid, String name, int price, int cost, int stock, Company company, int size) {
@@ -29,6 +29,8 @@ public class Clothes extends Product implements Discountable {
             return;
         }
         this.size = size;
+
+        // TODO : try and catch + repo
     }
 
     private boolean isSizeValid(int size) {
