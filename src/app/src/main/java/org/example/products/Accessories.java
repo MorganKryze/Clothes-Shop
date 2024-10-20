@@ -5,8 +5,8 @@ import org.example.interfaces.Discountable;
 public class Accessories extends Product implements Discountable {
     private static double discountPercentage = 0.5;
 
-    public Accessories(String uuid, String name, int price, int cost, int stock, Company company) {
-        super(uuid, name, price, cost, stock, company);
+    public Accessories(String uuid, String name, String iconPath, int price, int cost, int stock, Company company) {
+        super(uuid, name, iconPath, price, cost, stock, company);
     }
 
     @Override

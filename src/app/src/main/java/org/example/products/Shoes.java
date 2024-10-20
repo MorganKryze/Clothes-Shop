@@ -7,8 +7,9 @@ public class Shoes extends Product implements Discountable {
     private static double discountPercentage = 0.8;
     private int shoeSize;
 
-    public Shoes(String uuid, String name, int price, int cost, int stock, Company company, int shoeSize) {
-        super(uuid, name, price, cost, stock, company);
+    public Shoes(String uuid, String name, String iconPath, int price, int cost, int stock, Company company,
+            int shoeSize) {
+        super(uuid, name, iconPath, price, cost, stock, company);
         try {
             if (!isSizeValid(shoeSize)) {
                 throw new IllegalArgumentException("wrong size!");

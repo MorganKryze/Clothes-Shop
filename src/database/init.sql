@@ -8,10 +8,10 @@ CREATE TABLE Company (
 INSERT INTO Company (name, capital, income, costs)
 VALUES ('Clothes shop', 100000, 0, 0);
 CREATE TABLE Product (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    icon_source VARCHAR(255),
+    icon_path VARCHAR(255),
     category VARCHAR(255),
     price INTEGER NOT NULL,
     cost INTEGER NOT NULL,
@@ -22,6 +22,7 @@ CREATE TABLE Product (
     FOREIGN KEY (company_name) REFERENCES Company(name)
 );
 INSERT INTO Product (
+        id,
         name,
         icon_path,
         category,
@@ -32,6 +33,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
+        '40e6215d-b5c6-4896-987c-f30f3678f608',
         'Winter Dress',
         'batman.jpg',
         'clothes',
@@ -42,6 +44,7 @@ VALUES (
         'Clothes shop'
     ),
     (
+        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1c',
         'Professional Shirt',
         'unicorn.jpg',
         'clothes',
@@ -52,6 +55,7 @@ VALUES (
         'Clothes shop'
     ),
     (
+        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1d',
         'Not-Used Jean',
         'jean.jpg',
         'clothes',
@@ -62,6 +66,7 @@ VALUES (
         'Clothes shop'
     );
 INSERT INTO Product (
+        id,
         name,
         icon_path,
         category,
@@ -71,6 +76,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
+        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1e',
         'Cheap Little Clock',
         'Rolex.png',
         'accessories',
@@ -80,6 +86,7 @@ VALUES (
         'Clothes shop'
     ),
     (
+        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1f',
         'Portable Parachute',
         'parachute.jpg',
         'accessories',
@@ -89,6 +96,7 @@ VALUES (
         'Clothes shop'
     ),
     (
+        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1g',
         'Sunglasses',
         'sunglasses.jpg',
         'accessories',
@@ -98,6 +106,7 @@ VALUES (
         'Clothes shop'
     );
 INSERT INTO Product (
+        id,
         name,
         icon_path,
         category,
@@ -108,6 +117,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
+        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1h',
         'Classy shoe',
         'ffs.jpg',
         'shoes',
@@ -118,6 +128,7 @@ VALUES (
         'Clothes shop'
     ),
     (
+        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1i',
         'Work Shoe',
         'work.jpg',
         'shoes',
@@ -128,6 +139,7 @@ VALUES (
         'Clothes shop'
     ),
     (
+        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1j',
         'Aerodynamic shoe',
         'aero.jpg',
         'shoes',

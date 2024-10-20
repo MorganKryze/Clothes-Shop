@@ -35,6 +35,7 @@ public class ProductRepositoryImplementation {
                         product = new Shoes(
                                 resultSet.getString("uuid"),
                                 resultSet.getString("name"),
+                                resultSet.getString("icon_path"),
                                 resultSet.getInt("price"),
                                 resultSet.getInt("cost"),
                                 resultSet.getInt("stock"),
@@ -45,6 +46,7 @@ public class ProductRepositoryImplementation {
                         product = new Clothes(
                                 resultSet.getString("uuid"),
                                 resultSet.getString("name"),
+                                resultSet.getString("icon_path"),
                                 resultSet.getInt("price"),
                                 resultSet.getInt("cost"),
                                 resultSet.getInt("stock"),
@@ -55,6 +57,7 @@ public class ProductRepositoryImplementation {
                         product = new Accessories(
                                 resultSet.getString("uuid"),
                                 resultSet.getString("name"),
+                                resultSet.getString("icon_path"),
                                 resultSet.getInt("price"),
                                 resultSet.getInt("cost"),
                                 resultSet.getInt("stock"),

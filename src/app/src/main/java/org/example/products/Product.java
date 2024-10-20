@@ -12,7 +12,7 @@ public abstract class Product {
     private int stock;
     private Company company;
 
-    public Product(String uuid, String name, int price, int cost, int stock, Company company) {
+    public Product(String uuid, String name, String iconPath, int price, int cost, int stock, Company company) {
         try {
             this.uuid = uuid;
             if (name == null) {
@@ -29,6 +29,7 @@ public abstract class Product {
                 }
             }
             this.name = name;
+            this.iconPath = iconPath;
 
             if (price < 0 || cost < 0 || stock < 0) {
                 throw new IllegalArgumentException("No negative values allowed.");
