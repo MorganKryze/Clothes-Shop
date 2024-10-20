@@ -3,12 +3,15 @@
 entity Product {
     + id: UUID
     + name: String
-    + category: String
     + description: String
+    + icon_path: String
+    + category: String
     + price: Integer
-    + discounted_price: Integer
     + cost: Integer
     + stock: Integer
+    + clothing_size: Integer
+    + shoe_size: Integer
+    + company_name: String
 }
 
 entity Company {
@@ -16,6 +19,9 @@ entity Company {
     + capital: Integer
     + income: Integer
     + costs: Integer
+    + is_discount_enabled: Boolean
 }
+
+Product }|--|| Company : "company_name"
 
 @enduml

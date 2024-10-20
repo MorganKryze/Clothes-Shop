@@ -3,28 +3,52 @@
 Here are the most important files and directories of the project:
 
 ```plaintext
-Repository-Template
-├── src
+Clothes-Shop
+├── docs
 │   ├── assets
 │   │   └── img
-│   │       └── screenshot.png
+│   │       └── ...
+│   ├── architecture.puml
+│   └── STRUCTURE.md
+├── src
+│   ├── app
+│   │   └── src
+│   │       └── ...
+│   ├── database
+│   │   ├── .env
+│   │   ├── compose.yml
+│   │   └── init.sql
 │   └── project-code.sh
 ├── .gitignore
-├── SECURITY
-├── CODE_OF_CONDUCT
-├── CONTRIBUTING
 ├── LICENCE
 └── README.md
 ```
 
-## `src/`
+## `docs/`
 
-This directory contains the source code of the project.
+This directory contains the documentation of the project including this very file, the architecture diagram of the database and the assets.
 
-## `src/assets/`
+![diagram](./docs/assets/img/architecture.png)
 
-This directory contains the assets of the project.
+## `src/app`
 
-## Files
+This directory contains the source code for the JavaFX application.
 
-If necessary, provide a description of the most important files of the project.
+## `src/database`
+
+This directory contains the files needed to set up the postgres database.
+
+### `.env`
+
+This file contains the environment variables needed to set up the database.
+
+> [!WARNING]
+> Do not update the variables in this file unless you update them in the JavaFX application. (See `src/app/src/main/java/org/example/repositories/...`)
+
+### `compose.yml`
+
+This file contains the configuration for the docker-compose service.
+
+### `init.sql`
+
+This file contains the SQL script to initialize the database.
