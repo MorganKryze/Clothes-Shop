@@ -1,16 +1,37 @@
 package org.example.products;
 
-public class Accessories extends Product
-{
-    public Accessories(String name, double purchase_price, double sell_price)
-    { super(name, purchase_price, sell_price); }
+import org.example.interfaces.Discountable;
+
+public class Accessories extends Product implements Discountable {
+    private static double discountPercentage = 0.5;
+
+    public Accessories(String uuid, String name, int price, int cost, int stock, Company company) {
+        super(uuid, name, price, cost, stock, company);
+    }
 
     @Override
-    public String toString() { return super.toString(); }
+    public int getIntPrice() {
+        if (super.getCompany().isDiscountEnabled()) {
+            return applyDiscount(super.getIntPrice());
+        }
+        return super.getIntPrice();
+    }
 
     @Override
-    public void applyDiscount()
-    {
-        setDiscount_price(getSell_price()*0.5);
+    public double getDoublePrice() {
+        if (super.getCompany().isDiscountEnabled()) {
+            return applyDiscount(super.getIntPrice()) / 100.0;
+        }
+        return super.getDoublePrice();
+    }
+
+    @Override
+    public int applyDiscount(int price) {
+        return (int) (price * discountPercentage);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
