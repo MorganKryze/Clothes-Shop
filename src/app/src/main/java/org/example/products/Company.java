@@ -56,6 +56,7 @@ public class Company {
             }
         }
         this.name = name;
+        // TODO : try and catch + repo
     }
 
     public double getCapital() {
