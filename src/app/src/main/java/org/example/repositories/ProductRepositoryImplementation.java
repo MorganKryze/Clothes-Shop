@@ -31,34 +31,34 @@ public class ProductRepositoryImplementation {
                 Product product = null;
 
                 switch (category) {
-                    case "Shoes":
+                    case "shoes":
                         product = new Shoes(
                                 resultSet.getString("uuid"),
                                 resultSet.getString("name"),
                                 resultSet.getInt("price"),
                                 resultSet.getInt("cost"),
                                 resultSet.getInt("stock"),
-                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company")),
+                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
                                 resultSet.getInt("shoe_size"));
                         break;
-                    case "Clothes":
+                    case "clothes":
                         product = new Clothes(
                                 resultSet.getString("uuid"),
                                 resultSet.getString("name"),
                                 resultSet.getInt("price"),
                                 resultSet.getInt("cost"),
                                 resultSet.getInt("stock"),
-                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company")),
+                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
                                 resultSet.getInt("clothing_size"));
                         break;
-                    case "Accessories":
+                    case "accessories":
                         product = new Accessories(
                                 resultSet.getString("uuid"),
                                 resultSet.getString("name"),
                                 resultSet.getInt("price"),
                                 resultSet.getInt("cost"),
                                 resultSet.getInt("stock"),
-                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company")));
+                                CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")));
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown category: " + category);
