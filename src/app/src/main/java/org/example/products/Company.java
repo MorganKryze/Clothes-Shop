@@ -1,3 +1,5 @@
+package org.example.products;
+
 public class Company {
     private String name;
     private int capital;
@@ -39,7 +41,7 @@ public class Company {
         return name;
     }
 
-    public void setName(String name) {
+    public void updateName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null.");
         } else if (name.isEmpty()) {
@@ -60,7 +62,7 @@ public class Company {
         return capital / 100.0;
     }
 
-    public void setCapital(int capital) {
+    public void updateCapital(int capital) {
         if (capital < 0) {
             throw new IllegalArgumentException("Capital can't be negative");
         }
@@ -73,7 +75,13 @@ public class Company {
         return income / 100.0;
     }
 
-    public void updateIncome(double incomeToAdd) {
+    public void updateIncome(int income) {
+        this.income = income;
+
+        // TODO : try and catch + repo
+    }
+
+    public void addIncome(int incomeToAdd) {
         this.income += incomeToAdd;
 
         // TODO : try and catch + repo
@@ -83,7 +91,13 @@ public class Company {
         return costs / 100.0;
     }
 
-    public void updateCosts(double costToAdd) {
+    public void updateCosts(int costs) {
+        this.costs = costs;
+
+        // TODO : try and catch + repo
+    }
+
+    public void addCosts(double costToAdd) {
         this.costs += costToAdd;
 
         // TODO : try and catch + repo
@@ -93,8 +107,8 @@ public class Company {
         return isDiscountEnabled;
     }
 
-    public void setDiscountEnabled(boolean discountEnabled) {
-        isDiscountEnabled = discountEnabled;
+    public void updateDiscountEnabled() {
+        this.isDiscountEnabled = !this.isDiscountEnabled;
 
         // TODO : try and catch + repo
     }
