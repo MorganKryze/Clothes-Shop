@@ -3,6 +3,7 @@ public class Company {
     private int capital;
     private int income;
     private int costs;
+    private boolean isDiscountEnabled;
 
     public Company(String name, int capital) {
         try {
@@ -28,6 +29,7 @@ public class Company {
 
             this.income = 0;
             this.costs = 0;
+            this.isDiscountEnabled = false;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -83,6 +85,16 @@ public class Company {
 
     public void updateCosts(double costToAdd) {
         this.costs += costToAdd;
+
+        // TODO : try and catch + repo
+    }
+
+    public boolean isDiscountEnabled() {
+        return isDiscountEnabled;
+    }
+
+    public void setDiscountEnabled(boolean discountEnabled) {
+        isDiscountEnabled = discountEnabled;
 
         // TODO : try and catch + repo
     }
