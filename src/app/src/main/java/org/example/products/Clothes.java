@@ -1,41 +1,63 @@
 package org.example.products;
 
-public class Clothes extends Product
-{
+import org.example.interfaces.Discountable;
+
+public class Clothes extends Product implements Discountable {
+    private static double discountPercentage = 0.5;
     private int size;
 
-    public Clothes(String name, double purchase_price, double sell_price, int size)
-    {
-        super(name, purchase_price, sell_price);
-        try
-        {
-            if (correct_value(size) == false) { throw new IllegalArgumentException("wrong size!"); }
+    public Clothes(String uuid, String name, int price, int cost, int stock, Company company, int size) {
+        super(uuid, name, price, cost, stock, company);
+        try {
+            if (isSizeValid(size) == false) {
+                throw new IllegalArgumentException("wrong size!");
+            }
             this.size = size;
 
-        } catch(IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public int getSize() { return size; }
-    public void setSize(int size) { try { if(correct_value(size) == false) { throw new IllegalArgumentException("wrong size!"); } this.size = size; } catch(IllegalArgumentException e) { System.out.println(e.getMessage()); } }
+    public int getSize() {
+        return size;
+    }
 
-    @Override
-    public String toString() { return super.toString() + ", size=" + getSize(); }
+    public void updateSize(int size) {
+        if (!isSizeValid(size)) {
+            System.out.println("Wrong size!");
+            return;
+        }
+        this.size = size;
+    }
 
-    private boolean correct_value(int size)
-    {
-        boolean retour = true;
-        if (size < 34) {retour = false;}
-        if (size > 54) {retour = false;}
-        if (size%2 != 0) {retour = false;}
-        return retour;
+    private boolean isSizeValid(int size) {
+        return size >= 34 && size <= 54 && size % 2 == 0;
     }
 
     @Override
-    public void applyDiscount()
-    {
-        setDiscount_price(getSell_price()*0.7);
+    public int getIntPrice() {
+        if (super.getCompany().isDiscountEnabled()) {
+            return applyDiscount(super.getIntPrice());
+        }
+        return super.getIntPrice();
+    }
+
+    @Override
+    public double getDoublePrice() {
+        if (super.getCompany().isDiscountEnabled()) {
+            return applyDiscount(super.getIntPrice()) / 100.0;
+        }
+        return super.getDoublePrice();
+    }
+
+    @Override
+    public int applyDiscount(int price) {
+        return (int) (price * discountPercentage);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", size=" + getSize();
     }
 }
