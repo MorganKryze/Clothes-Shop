@@ -1,6 +1,7 @@
 package org.example.products;
 
 import org.example.interfaces.Discountable;
+import org.example.repositories.ProductRepositoryImplementation;
 
 public class Clothes extends Product implements Discountable {
     private static double discountPercentage = 0.7;
@@ -23,14 +24,20 @@ public class Clothes extends Product implements Discountable {
         return clothingSize;
     }
 
-    public void updateSize(int size) {
+    public boolean updateSize(int size) {
         if (!isSizeValid(size)) {
             System.out.println("Wrong size!");
-            return;
+            return false;
         }
-        this.clothingSize = size;
-
-        // TODO : try and catch + repo
+        try {
+            if (ProductRepositoryImplementation.updateClothingSize(super.getUuid(), size)) {
+                this.clothingSize = size;
+            }
+            return true;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     private boolean isSizeValid(int size) {

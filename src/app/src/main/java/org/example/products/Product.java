@@ -1,5 +1,8 @@
 package org.example.products;
 
+import org.example.repositories.CompanyRepositoryImplementation;
+import org.example.repositories.ProductRepositoryImplementation;
+
 public abstract class Product {
     private String uuid;
     private String name;
@@ -48,7 +51,7 @@ public abstract class Product {
         return name;
     }
 
-    public void updateName(String name) {
+    public boolean updateName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null.");
         } else if (name.isEmpty()) {
@@ -62,19 +65,31 @@ public abstract class Product {
                 }
             }
         }
-        this.name = name;
-
-        // TODO : try and catch + repo
+        try {
+            if (ProductRepositoryImplementation.updateName(uuid, name)) {
+                this.name = name;
+                return true;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     public String getIconPath() {
         return iconPath;
     }
 
-    public void updateIconPath(String iconPath) {
-        this.iconPath = iconPath;
-
-        // TODO : try and catch + repo
+    public boolean updateIconPath(String iconPath) {
+        try {
+            if (ProductRepositoryImplementation.updateIconPath(uuid, iconPath)) {
+                this.iconPath = iconPath;
+                return true;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     public double getDoublePrice() {
@@ -85,95 +100,120 @@ public abstract class Product {
         return price;
     }
 
-    public double getCost() {
+    public double getDoubleCost() {
         return cost / 100.0;
     }
 
-    public int updateCost(int cost) {
+    public int getIntCost() {
+        return cost;
+    }
+
+    public boolean updateCost(int cost) {
         try {
             if (cost < 0) {
                 throw new IllegalArgumentException("Negative price!");
             }
-            this.cost = cost;
+            if (ProductRepositoryImplementation.updateCost(uuid, cost)) {
+                this.cost = cost;
+                return true;
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-        return this.cost;
-
-        // TODO : try and catch + repo
+        return false;
     }
 
     public int getStock() {
         return stock;
     }
 
-    public void updateStock(int items) {
+    public boolean updateStock(int items) {
         try {
             if (items < 0) {
                 throw new IllegalArgumentException("Negative items number.");
             }
-            this.stock = items;
+            if (ProductRepositoryImplementation.updateStock(uuid, items)) {
+                this.stock = items;
+                return true;
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
-        // TODO : try and catch + repo
+        return false;
     }
 
-    public void addToStock(int items) {
+    public boolean addToStock(int items) {
         try {
             if (items < 0) {
                 throw new IllegalArgumentException("Negative items number.");
             }
-            this.stock += items;
+            if (ProductRepositoryImplementation.addToStock(uuid, items)) {
+                this.stock += items;
+                return true;
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
-        // TODO : try and catch + repo
+        return false;
     }
 
-    public void removeFromStock(int items) {
+    public boolean removeFromStock(int items) {
         try {
             if (items < 0) {
                 throw new IllegalArgumentException("Negative items number.");
             } else if (items > this.stock) {
                 throw new IllegalArgumentException("Not enough items in stock.");
             }
-            this.stock -= items;
+            if (ProductRepositoryImplementation.removeFromStock(uuid, items)) {
+                this.stock -= items;
+                return true;
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
-        // TODO : try and catch + repo
+        return false;
     }
 
     public Company getCompany() {
         return company;
     }
 
-    public void updateCompany(Company company) {
-        this.company = company;
-
-        // TODO : try and catch + repo
-    }
-
-    public void sell(int numberOfItems) {
+    public boolean sell(int numberOfItems) {
         try {
-            removeFromStock(numberOfItems);
-            company.addIncome(numberOfItems * getIntPrice());
-
-            // TODO : try and catch + repo
+            if (numberOfItems < 0) {
+                throw new IllegalArgumentException("Negative items number.");
+            } else if (numberOfItems > this.stock) {
+                throw new IllegalArgumentException("Not enough items in stock.");
+            }
+            if (ProductRepositoryImplementation.removeFromStock(uuid, numberOfItems)) {
+                removeFromStock(numberOfItems);
+            }
+            if (CompanyRepositoryImplementation.updateIncome(company.getName(), numberOfItems * getIntPrice())) {
+                company.addIncome(numberOfItems * getIntPrice());
+            }
+            return true;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
-    public void purchase(int numberOfItems) {
-        addToStock(numberOfItems);
-        company.addCosts(numberOfItems * this.cost);
-
-        // TODO : try and catch + repo
+    public boolean purchase(int numberOfItems) {
+        try {
+            if (numberOfItems < 0) {
+                throw new IllegalArgumentException("Negative items number.");
+            }
+            if (ProductRepositoryImplementation.addToStock(uuid, numberOfItems)) {
+                addToStock(numberOfItems);
+            }
+            if (CompanyRepositoryImplementation.updateCosts(company.getName(), numberOfItems * getIntCost())) {
+                company.addIncome(numberOfItems * getIntCost());
+            }
+            return true;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     @Override

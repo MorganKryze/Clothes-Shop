@@ -5,7 +5,6 @@ import org.example.repositories.CompanyRepositoryImplementation;
 
 public class App {
     public static void main(String[] args) {
-        Company test = CompanyRepositoryImplementation.getCompanyByName("Clothes shop");
 
     }
 }
