@@ -37,7 +37,7 @@ public class CompanyRepositoryImplementation {
         return company;
     }
 
-    public boolean updateName(String oldName, String newName) {
+    public static boolean updateName(String oldName, String newName) {
         String query = "UPDATE Company SET name = ? WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -55,7 +55,7 @@ public class CompanyRepositoryImplementation {
 
     }
 
-    public String getCompanyCapital(String name) {
+    public static String getCompanyCapital(String name) {
         String query = "SELECT capital FROM Company WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -75,7 +75,7 @@ public class CompanyRepositoryImplementation {
         return null;
     }
 
-    public boolean updateCapital(String name, int capital) {
+    public static boolean updateCapital(String name, int capital) {
         String query = "UPDATE Company SET capital = ? WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -92,7 +92,7 @@ public class CompanyRepositoryImplementation {
         }
     }
 
-    public String getCompanyIncome(String name) {
+    public static String getCompanyIncome(String name) {
         String query = "SELECT income FROM Company WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -112,7 +112,7 @@ public class CompanyRepositoryImplementation {
         return null;
     }
 
-    public boolean updateIncome(String name, int income) {
+    public static boolean updateIncome(String name, int income) {
         String query = "UPDATE Company SET income = ? WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -129,7 +129,7 @@ public class CompanyRepositoryImplementation {
         }
     }
 
-    public String getCompanyCosts(String name) {
+    public static String getCompanyCosts(String name) {
         String query = "SELECT costs FROM Company WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -149,7 +149,7 @@ public class CompanyRepositoryImplementation {
         return null;
     }
 
-    public boolean updateCosts(String name, int costs) {
+    public static boolean updateCosts(String name, int costs) {
         String query = "UPDATE Company SET costs = ? WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -166,7 +166,7 @@ public class CompanyRepositoryImplementation {
         }
     }
 
-    public String getCompanyDiscountStatus(String name) {
+    public static String getCompanyDiscountStatus(String name) {
         String query = "SELECT isDiscountEnabled FROM Company WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -186,7 +186,7 @@ public class CompanyRepositoryImplementation {
         return null;
     }
 
-    public boolean updateDiscountStatus(String name) {
+    public static boolean updateDiscountStatus(String name) {
         String query = "UPDATE Company SET isDiscountEnabled = NOT isDiscountEnabled WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);

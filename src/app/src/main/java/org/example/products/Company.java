@@ -1,5 +1,7 @@
 package org.example.products;
 
+import org.example.repositories.CompanyRepositoryImplementation;
+
 public class Company {
     private String name;
     private int capital;
@@ -42,21 +44,26 @@ public class Company {
     }
 
     public void updateName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Name cannot be null.");
-        } else if (name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty.");
-        } else if (name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be blank.");
-        } else {
-            for (int i = 0; i < name.length(); i++) {
-                if (Character.isDigit(name.charAt(i))) {
-                    throw new IllegalArgumentException("Name cannot contain digits.");
+        try {
+            if (name == null) {
+                throw new IllegalArgumentException("Name cannot be null.");
+            } else if (name.isEmpty()) {
+                throw new IllegalArgumentException("Name cannot be empty.");
+            } else if (name.isBlank()) {
+                throw new IllegalArgumentException("Name cannot be blank.");
+            } else {
+                for (int i = 0; i < name.length(); i++) {
+                    if (Character.isDigit(name.charAt(i))) {
+                        throw new IllegalArgumentException("Name cannot contain digits.");
+                    }
                 }
             }
+            if (CompanyRepositoryImplementation.updateName(this.name, name)) {
+                this.name = name;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
-        this.name = name;
-        // TODO : try and catch + repo
     }
 
     public double getCapital() {
@@ -67,9 +74,13 @@ public class Company {
         if (capital < 0) {
             throw new IllegalArgumentException("Capital can't be negative");
         }
-        this.capital = capital;
-
-        // TODO : try and catch + repo
+        try {
+            if (CompanyRepositoryImplementation.updateCapital(this.name, capital)) {
+                this.capital = capital;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public double getIncome() {
@@ -77,15 +88,29 @@ public class Company {
     }
 
     public void updateIncome(int income) {
-        this.income = income;
-
-        // TODO : try and catch + repo
+        if (income < 0) {
+            throw new IllegalArgumentException("Income can't be negative");
+        }
+        try {
+            if (CompanyRepositoryImplementation.updateIncome(this.name, income)) {
+                this.income = income;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void addIncome(int incomeToAdd) {
-        this.income += incomeToAdd;
-
-        // TODO : try and catch + repo
+        if (incomeToAdd < 0) {
+            throw new IllegalArgumentException("Income can't be negative");
+        }
+        try {
+            if (CompanyRepositoryImplementation.updateIncome(this.name, this.income + incomeToAdd)) {
+                this.income += incomeToAdd;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public double getCosts() {
@@ -93,15 +118,31 @@ public class Company {
     }
 
     public void updateCosts(int costs) {
-        this.costs = costs;
+        if (costs < 0) {
+            throw new IllegalArgumentException("Costs can't be negative");
+        }
 
-        // TODO : try and catch + repo
+        try {
+            if (CompanyRepositoryImplementation.updateCosts(this.name, costs)) {
+                this.costs = costs;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void addCosts(double costToAdd) {
-        this.costs += costToAdd;
+        if (costToAdd < 0) {
+            throw new IllegalArgumentException("Costs can't be negative");
+        }
 
-        // TODO : try and catch + repo
+        try {
+            if (CompanyRepositoryImplementation.updateCosts(this.name, this.costs + (int) (costToAdd * 100))) {
+                this.costs += (int) (costToAdd * 100);
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public boolean isDiscountEnabled() {
@@ -109,8 +150,13 @@ public class Company {
     }
 
     public void updateDiscountEnabled() {
-        this.isDiscountEnabled = !this.isDiscountEnabled;
+        try {
+            if (CompanyRepositoryImplementation.updateDiscountStatus(this.name)) {
+                this.isDiscountEnabled = !this.isDiscountEnabled;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
 
-        // TODO : try and catch + repo
+        }
     }
 }
