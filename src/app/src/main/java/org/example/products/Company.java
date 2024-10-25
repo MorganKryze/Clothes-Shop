@@ -242,4 +242,9 @@ public class Company {
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("Capital: %s  Income: %s  Cost: %s", getCapital(), getIncome(), getCosts());
+    }
 }
