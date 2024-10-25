@@ -34,7 +34,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         liste_habits = new ArrayList<>(init_liste_habits());
-        try{
+        try {
             for (int i = 0; i < init_liste_habits().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("Produit.fxml"));
@@ -48,7 +48,7 @@ public class Controller implements Initializable {
         }
 
         liste_accessoires = new ArrayList<>(init_liste_accessoires());
-        try{
+        try {
             for (int i = 0; i < init_liste_accessoires().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("Produit.fxml"));
@@ -62,7 +62,7 @@ public class Controller implements Initializable {
         }
 
         liste_chaussures = new ArrayList<>(init_liste_chaussures());
-        try{
+        try {
             for (int i = 0; i < init_liste_chaussures().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("Produit.fxml"));
@@ -78,14 +78,14 @@ public class Controller implements Initializable {
         foot.setText(Produit.footer);
     }
 
-    public void updatetxt(){
+    public void updatetxt() {
         foot.setText(Produit.footer);
     }
 
-    private List<Produit> init_liste_habits(){
+    private List<Produit> init_liste_habits() {
         List<Produit> liste_retour = new ArrayList<>();
 
-        Produit produit = new Produit("Winter Dress","batman.jpg", 10000, 1000000, 700000, 1, 1);
+        Produit produit = new Produit("Winter Dress", "batman.jpg", 10000, 1000000, 700000, 1, 1);
         liste_retour.add(produit);
 
         produit = new Produit("Professional Shirt", "unicorn.jpg", 0.43, 20, 14, 333, 2);
@@ -96,7 +96,7 @@ public class Controller implements Initializable {
         return liste_retour;
     }
 
-    private List<Produit> init_liste_accessoires(){
+    private List<Produit> init_liste_accessoires() {
         List<Produit> liste_retour = new ArrayList<>();
 
         Produit produit = new Produit("Cheap Little Clock", "Rolex.png", 155000, 8.77, 23, 6, 4);
@@ -111,7 +111,7 @@ public class Controller implements Initializable {
         return liste_retour;
     }
 
-    private List<Produit> init_liste_chaussures(){
+    private List<Produit> init_liste_chaussures() {
         List<Produit> liste_retour = new ArrayList<>();
 
         Produit produit = new Produit("Classy shoe", "ffs.jpg", 67, 87.7, 63, 38, 7);
@@ -120,7 +120,7 @@ public class Controller implements Initializable {
         produit = new Produit("Work Shoe", "work.jpg", 2.55, 28, 20, 16, 8);
         liste_retour.add(produit);
 
-        produit = new Produit("Aerodynamic shoe", "aero.jpg",0.20,  1999, 1500, 529, 9);
+        produit = new Produit("Aerodynamic shoe", "aero.jpg", 0.20, 1999, 1500, 529, 9);
         liste_retour.add(produit);
 
         return liste_retour;
