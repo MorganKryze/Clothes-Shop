@@ -28,7 +28,7 @@ public class Company {
      * @throws IllegalArgumentException if the name is null, empty, blank, contains
      *                                  digits, or if the capital is negative
      */
-    public Company(String name, int capital) {
+    public Company(String name, int capital, int income, int costs, boolean isDiscountEnabled) {
         try {
             if (name == null) {
                 throw new IllegalArgumentException("Name cannot be null.");
@@ -50,9 +50,9 @@ public class Company {
             }
             this.capital = capital;
 
-            this.income = 0;
-            this.costs = 0;
-            this.isDiscountEnabled = false;
+            this.income = income;
+            this.costs = costs;
+            this.isDiscountEnabled = isDiscountEnabled;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -131,7 +131,7 @@ public class Company {
      * @return the income of the company
      */
     public double getIncome() {
-        return income / 100.0;
+        return CompanyRepositoryImplementation.getCompanyIncome(name) / 100.0;
     }
 
     /**
@@ -178,7 +178,7 @@ public class Company {
      * @return the costs of the company
      */
     public double getCosts() {
-        return costs / 100.0;
+        return CompanyRepositoryImplementation.getCompanyCosts(name) / 100.0;
     }
 
     /**

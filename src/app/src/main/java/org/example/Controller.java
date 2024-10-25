@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.Package_Produit.Produit;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,37 +19,22 @@ import org.example.products.Shoes;
 import org.example.repositories.CompanyRepositoryImplementation;
 import org.example.repositories.ProductRepositoryImplementation;
 
-// public class App {
-//     public static void main(String[] args) {
-//         Company company = CompanyRepositoryImplementation.getCompanyByName("Clothes shop");
-
-//         Clothes dress = ProductRepositoryImplementation.getClothesByUUID("40e6215d-b5c6-4896-987c-f30f3678f608"); 
-//         Clothes shirt = ProductRepositoryImplementation.getClothesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1c");
-//         Clothes jean = ProductRepositoryImplementation.getClothesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1d");
-
-//         Accessories clock = ProductRepositoryImplementation.getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1e");
-//         Accessories parachute = ProductRepositoryImplementation.getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1f");
-//         Accessories sunglasses = ProductRepositoryImplementation.getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1g");
-
-//         Shoes classy = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1h");
-//         Shoes work = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1i");
-//         Shoes aero = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1j");
-//     }
-// }
-
 public class Controller implements Initializable {
 
     @FXML
     private HBox boite_accessoires;
-    private List<Produit> liste_accessoires;
+    @SuppressWarnings("unused")
+    private List<Accessories> liste_accessoires;
 
     @FXML
     private HBox boite_habits;
-    private List<Produit> liste_habits;
+    @SuppressWarnings("unused")
+    private List<Clothes> liste_habits;
 
     @FXML
     private HBox boite_chaussures;
-    private List<Produit> liste_chaussures;
+    @SuppressWarnings("unused")
+    private List<Shoes> liste_chaussures;
 
     @FXML
     private Label foot;
@@ -64,10 +48,10 @@ public class Controller implements Initializable {
         try {
             for (int i = 0; i < init_liste_habits().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Produit.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("Product.fxml"));
                 HBox CardLayout = fxmlLoader.load();
-                ProduitController miniccontrollerbut = fxmlLoader.getController();
-                miniccontrollerbut.setData(init_liste_habits().get(i));
+                ProductController miniccontrollerbut = fxmlLoader.getController();
+                miniccontrollerbut.setData(init_liste_habits().get(i), foot, company);
                 boite_habits.getChildren().add(CardLayout);
             }
         } catch (IOException e) {
@@ -78,10 +62,10 @@ public class Controller implements Initializable {
         try {
             for (int i = 0; i < init_liste_accessoires().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Produit.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("Product.fxml"));
                 HBox CardLayout = fxmlLoader.load();
-                ProduitController miniccontrollerbut = fxmlLoader.getController();
-                miniccontrollerbut.setData(init_liste_accessoires().get(i));
+                ProductController miniccontrollerbut = fxmlLoader.getController();
+                miniccontrollerbut.setData(init_liste_accessoires().get(i), foot, company);
                 boite_accessoires.getChildren().add(CardLayout);
             }
         } catch (IOException e) {
@@ -92,10 +76,10 @@ public class Controller implements Initializable {
         try {
             for (int i = 0; i < init_liste_chaussures().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Produit.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("Product.fxml"));
                 HBox CardLayout = fxmlLoader.load();
-                ProduitController miniccontrollerbut = fxmlLoader.getController();
-                miniccontrollerbut.setData(init_liste_chaussures().get(i));
+                ProductController miniccontrollerbut = fxmlLoader.getController();
+                miniccontrollerbut.setData(init_liste_chaussures().get(i), foot, company);
                 boite_chaussures.getChildren().add(CardLayout);
             }
         } catch (IOException e) {
@@ -109,47 +93,47 @@ public class Controller implements Initializable {
         foot.setText(company.toString());
     }
 
-    private List<Produit> init_liste_habits() {
-        List<Produit> liste_retour = new ArrayList<>();
+    private List<Clothes> init_liste_habits() {
+        List<Clothes> liste_retour = new ArrayList<>();
 
-        Produit produit = new Produit("Winter Dress", "batman.jpg", 10000, 1000000, 700000, 1, 1);
-        liste_retour.add(produit);
+        Clothes dress = ProductRepositoryImplementation.getClothesByUUID("40e6215d-b5c6-4896-987c-f30f3678f608");
+        Clothes shirt = ProductRepositoryImplementation.getClothesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1c");
+        Clothes jean = ProductRepositoryImplementation.getClothesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1d");
 
-        produit = new Produit("Professional Shirt", "unicorn.jpg", 0.43, 20, 14, 333, 2);
-        liste_retour.add(produit);
-
-        produit = new Produit("Not-Used Jean", "jean.jpg", 8, 80, 66, 58, 3);
-        liste_retour.add(produit);
-        return liste_retour;
-    }
-
-    private List<Produit> init_liste_accessoires() {
-        List<Produit> liste_retour = new ArrayList<>();
-
-        Produit produit = new Produit("Cheap Little Clock", "Rolex.png", 155000, 8.77, 23, 6, 4);
-        liste_retour.add(produit);
-
-        produit = new Produit("Portable Parachute", "parachute.jpg", 2.55, 34, 25, 74, 5);
-        liste_retour.add(produit);
-
-        produit = new Produit("Sunglasses", "sunglasses.jpg", 3500, 3500, 3500, 24, 6);
-        liste_retour.add(produit);
+        liste_retour.add(dress);
+        liste_retour.add(shirt);
+        liste_retour.add(jean);
 
         return liste_retour;
     }
 
-    private List<Produit> init_liste_chaussures() {
-        List<Produit> liste_retour = new ArrayList<>();
+    private List<Accessories> init_liste_accessoires() {
+        List<Accessories> liste_retour = new ArrayList<>();
+        Accessories clock = ProductRepositoryImplementation
+                .getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1e");
+        Accessories parachute = ProductRepositoryImplementation
+                .getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1f");
+        Accessories sunglasses = ProductRepositoryImplementation
+                .getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1g");
 
-        Produit produit = new Produit("Classy shoe", "ffs.jpg", 67, 87.7, 63, 38, 7);
-        liste_retour.add(produit);
-
-        produit = new Produit("Work Shoe", "work.jpg", 2.55, 28, 20, 16, 8);
-        liste_retour.add(produit);
-
-        produit = new Produit("Aerodynamic shoe", "aero.jpg", 0.20, 1999, 1500, 529, 9);
-        liste_retour.add(produit);
+        liste_retour.add(clock);
+        liste_retour.add(parachute);
+        liste_retour.add(sunglasses);
 
         return liste_retour;
     }
+
+    private List<Shoes> init_liste_chaussures() {
+        List<Shoes> liste_retour = new ArrayList<>();
+        Shoes classy = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1h");
+        Shoes work = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1i");
+        Shoes aero = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1j");
+
+        liste_retour.add(classy);
+        liste_retour.add(work);
+        liste_retour.add(aero);
+
+        return liste_retour;
+    }
+
 }

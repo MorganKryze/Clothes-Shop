@@ -25,7 +25,9 @@ public class CompanyRepositoryImplementation {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                company = new Company(resultSet.getString("name"), resultSet.getInt("capital"));
+                company = new Company(resultSet.getString("name"), resultSet.getInt("capital"),
+                        resultSet.getInt("income"),
+                        resultSet.getInt("costs"), resultSet.getBoolean("is_discount_enabled"));
             }
             resultSet.close();
             return company;
@@ -92,7 +94,7 @@ public class CompanyRepositoryImplementation {
         }
     }
 
-    public static String getCompanyIncome(String name) {
+    public static int getCompanyIncome(String name) {
         String query = "SELECT income FROM Company WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -102,14 +104,14 @@ public class CompanyRepositoryImplementation {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getString("income");
+                return resultSet.getInt("income");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return 0;
     }
 
     public static boolean updateIncome(String name, int income) {
@@ -129,7 +131,7 @@ public class CompanyRepositoryImplementation {
         }
     }
 
-    public static String getCompanyCosts(String name) {
+    public static int getCompanyCosts(String name) {
         String query = "SELECT costs FROM Company WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -139,14 +141,14 @@ public class CompanyRepositoryImplementation {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getString("costs");
+                return resultSet.getInt("costs");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return 0;
     }
 
     public static boolean updateCosts(String name, int costs) {

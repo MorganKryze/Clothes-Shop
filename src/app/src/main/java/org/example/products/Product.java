@@ -347,7 +347,7 @@ public abstract class Product {
      */
     @Override
     public String toString() {
-        return String.format("Product %s: number=%s, purchase_price=%s, sell_price=%s, nbItems=%s",
-                name, uuid, cost, price, stock);
+        return String.format("Purchase_price=%s \n sell_price=%s \n stock=%s",
+                getDoublePrice(), getDoubleCost(), getStock());
     }
 }

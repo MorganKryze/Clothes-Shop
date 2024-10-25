@@ -109,7 +109,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean updateName(String uuid, String newName) {
-        String query = "UPDATE Product SET name = ? WHERE uuid = ?";
+        String query = "UPDATE Product SET name = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -126,7 +126,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static String getProductIconPath(String uuid) {
-        String query = "SELECT icon_path FROM Product WHERE uuid = ?";
+        String query = "SELECT icon_path FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -147,7 +147,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean updateIconPath(String uuid, String iconPath) {
-        String query = "UPDATE Product SET icon_path = ? WHERE uuid = ?";
+        String query = "UPDATE Product SET icon_path = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -164,7 +164,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static int getProductPrice(String uuid) {
-        String query = "SELECT price FROM Product WHERE uuid = ?";
+        String query = "SELECT price FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -184,7 +184,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean updatePrice(String uuid, int price) {
-        String query = "UPDATE Product SET price = ? WHERE uuid = ?";
+        String query = "UPDATE Product SET price = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -201,7 +201,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static int getProductCost(String uuid) {
-        String query = "SELECT cost FROM Product WHERE uuid = ?";
+        String query = "SELECT cost FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -221,7 +221,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean updateCost(String uuid, int cost) {
-        String query = "UPDATE Product SET cost = ? WHERE uuid = ?";
+        String query = "UPDATE Product SET cost = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -238,7 +238,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static int getProductStock(String uuid) {
-        String query = "SELECT stock FROM Product WHERE uuid = ?";
+        String query = "SELECT stock FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -258,7 +258,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean updateStock(String uuid, int stock) {
-        String query = "UPDATE Product SET stock = ? WHERE uuid = ?";
+        String query = "UPDATE Product SET stock = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -275,7 +275,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean addToStock(String uuid, int amount) {
-        String query = "UPDATE Product SET stock = stock + ? WHERE uuid = ?";
+        String query = "UPDATE Product SET stock = stock + ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -292,7 +292,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean removeFromStock(String uuid, int amount) {
-        String query = "UPDATE Product SET stock = stock - ? WHERE uuid = ?";
+        String query = "UPDATE Product SET stock = stock - ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -309,7 +309,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static String getProductCompany(String uuid) {
-        String query = "SELECT company FROM Product WHERE uuid = ?";
+        String query = "SELECT company FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -330,7 +330,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static int getShoeSize(String uuid) {
-        String query = "SELECT shoe_size FROM Product WHERE uuid = ?";
+        String query = "SELECT shoe_size FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -351,7 +351,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean updateShoeSize(String uuid, int shoeSize) {
-        String query = "UPDATE Product SET shoe_size = ? WHERE uuid = ?";
+        String query = "UPDATE Product SET shoe_size = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -368,7 +368,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static int getClothingSize(String uuid) {
-        String query = "SELECT clothing_size FROM Product WHERE uuid = ?";
+        String query = "SELECT clothing_size FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -389,7 +389,7 @@ public class ProductRepositoryImplementation {
     }
 
     public static boolean updateClothingSize(String uuid, int clothingSize) {
-        String query = "UPDATE Product SET clothing_size = ? WHERE uuid = ?";
+        String query = "UPDATE Product SET clothing_size = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {

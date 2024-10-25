@@ -129,6 +129,6 @@ public class Shoes extends Product implements Discountable {
      */
     @Override
     public String toString() {
-        return super.toString() + ", shoeSize=" + getShoeSize();
+        return super.toString() + "\nsize:" + getShoeSize();
     }
 }
