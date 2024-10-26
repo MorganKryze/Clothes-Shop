@@ -89,7 +89,7 @@ public class Company {
                     }
                 }
             }
-            if (CompanyRepositoryImplementation.updateName(this.name, name)) {
+            if (CompanyRepositoryImplementation.updateCompanyNameByName(this.name, name)) {
                 this.name = name;
             }
         } catch (IllegalArgumentException e) {
@@ -102,7 +102,7 @@ public class Company {
      *
      * @return the capital of the company
      */
-    public double getCapital() {
+    public int getCapital() {
         return capital;
     }
 
@@ -117,7 +117,7 @@ public class Company {
             throw new IllegalArgumentException("Capital can't be negative");
         }
         try {
-            if (CompanyRepositoryImplementation.updateCapital(getName(), capital)) {
+            if (CompanyRepositoryImplementation.updateCompanyCapitalByName(getName(), capital)) {
                 this.capital = capital;
             }
         } catch (IllegalArgumentException e) {
@@ -145,7 +145,7 @@ public class Company {
             throw new IllegalArgumentException("Income can't be negative");
         }
         try {
-            if (CompanyRepositoryImplementation.updateIncome(getName(), income)) {
+            if (CompanyRepositoryImplementation.updateCompanyIncomeByName(getName(), income)) {
                 this.income = income;
             }
         } catch (IllegalArgumentException e) {
@@ -164,7 +164,7 @@ public class Company {
             throw new IllegalArgumentException("Income can't be negative");
         }
         try {
-            if (CompanyRepositoryImplementation.updateIncome(getName(), getIncome() + incomeToAdd)) {
+            if (CompanyRepositoryImplementation.updateCompanyIncomeByName(getName(), getIncome() + incomeToAdd)) {
                 this.income += incomeToAdd;
             }
         } catch (IllegalArgumentException e) {
@@ -193,7 +193,7 @@ public class Company {
         }
 
         try {
-            if (CompanyRepositoryImplementation.updateCosts(getName(), costs)) {
+            if (CompanyRepositoryImplementation.updateCompanyCostsByName(getName(), costs)) {
                 this.costs = costs;
             }
         } catch (IllegalArgumentException e) {
@@ -213,7 +213,7 @@ public class Company {
         }
 
         try {
-            if (CompanyRepositoryImplementation.updateCosts(getName(), getCosts() + costToAdd)) {
+            if (CompanyRepositoryImplementation.updateCompanyCostsByName(getName(), getCosts() + costToAdd)) {
                 this.costs += costToAdd;
             }
         } catch (IllegalArgumentException e) {
@@ -235,7 +235,7 @@ public class Company {
      */
     public void updateDiscountEnabled() {
         try {
-            if (CompanyRepositoryImplementation.updateDiscountStatus(getName())) {
+            if (CompanyRepositoryImplementation.updateDiscountStatusByName(getName())) {
                 this.isDiscountEnabled = !this.isDiscountEnabled;
             }
         } catch (IllegalArgumentException e) {

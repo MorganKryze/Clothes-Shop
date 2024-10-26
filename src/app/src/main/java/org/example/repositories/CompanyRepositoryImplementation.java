@@ -14,34 +14,29 @@ public class CompanyRepositoryImplementation {
     private static final String USER = "postgres";
     private static final String PASSWORD = "gSswtP@jiWjArvTY**15ALjasSzOVgE!iENWz9y0Ip5&JSw^";
 
-    // public static boolean createCompany(Company company) {
-    // String query = "INSERT INTO Company (name, capital, income, costs,
-    // is_discount_enabled) VALUES (?, ?, ?, ?, ?)";
+    public static boolean createCompany(Company company) {
+        String query = "INSERT INTO Company (name, capital, income, costs, is_discount_enabled) VALUES (?, ?, ?, ?, ?)";
 
-    // try (Connection connection = DriverManager.getConnection(URL, USER,
-    // PASSWORD);
-    // PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-    // preparedStatement.setString(1, company.getName());
-    // preparedStatement.setInt(2, company.getCapital());
-    // preparedStatement.setInt(3, company.getIncome());
-    // preparedStatement.setInt(4, company.getCosts());
-    // preparedStatement.setBoolean(5, company.isDiscountEnabled());
-    // preparedStatement.executeUpdate();
-    // return true;
+            preparedStatement.setString(1, company.getName());
+            preparedStatement.setInt(2, company.getCapital());
+            preparedStatement.setDouble(3, company.getIncome());
+            preparedStatement.setDouble(4, company.getCosts());
+            preparedStatement.setBoolean(5, company.isDiscountEnabled());
+            preparedStatement.executeUpdate();
+            return true;
 
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // return false;
-    // }
-    // }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 
     public static Company getCompanyByName(String name) {
         Company company = null;
         String query = "SELECT * FROM Company WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, name);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -59,11 +54,10 @@ public class CompanyRepositoryImplementation {
         return company;
     }
 
-    public static boolean updateName(String oldName, String newName) {
+    public static boolean updateCompanyNameByName(String oldName, String newName) {
         String query = "UPDATE Company SET name = ? WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, newName);
             preparedStatement.setString(2, oldName);
@@ -76,11 +70,10 @@ public class CompanyRepositoryImplementation {
 
     }
 
-    public static int getCompanyCapital(String name) {
+    public static int getCompanyCapitalByName(String name) {
         String query = "SELECT capital FROM Company WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -95,11 +88,10 @@ public class CompanyRepositoryImplementation {
         return 0;
     }
 
-    public static boolean updateCapital(String name, int capital) {
+    public static boolean updateCompanyCapitalByName(String name, int capital) {
         String query = "UPDATE Company SET capital = ? WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, capital);
             preparedStatement.setString(2, name);
@@ -111,11 +103,10 @@ public class CompanyRepositoryImplementation {
         }
     }
 
-    public static double getCompanyIncome(String name) {
+    public static double getCompanyIncomeByName(String name) {
         String query = "SELECT income FROM Company WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -130,11 +121,10 @@ public class CompanyRepositoryImplementation {
         return 0;
     }
 
-    public static boolean updateIncome(String name, double income) {
+    public static boolean updateCompanyIncomeByName(String name, double income) {
         String query = "UPDATE Company SET income = ? WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setDouble(1, income);
             preparedStatement.setString(2, name);
@@ -146,11 +136,10 @@ public class CompanyRepositoryImplementation {
         }
     }
 
-    public static double getCompanyCosts(String name) {
+    public static double getCompanyCostsByName(String name) {
         String query = "SELECT costs FROM Company WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -165,11 +154,10 @@ public class CompanyRepositoryImplementation {
         return 0;
     }
 
-    public static boolean updateCosts(String name, double costs) {
+    public static boolean updateCompanyCostsByName(String name, double costs) {
         String query = "UPDATE Company SET costs = ? WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setDouble(1, costs);
             preparedStatement.setString(2, name);
@@ -181,11 +169,10 @@ public class CompanyRepositoryImplementation {
         }
     }
 
-    public static boolean getCompanyDiscountStatus(String name) {
+    public static boolean getCompanyDiscountStatusByName(String name) {
         String query = "SELECT isDiscountEnabled FROM Company WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -200,14 +187,32 @@ public class CompanyRepositoryImplementation {
         return false;
     }
 
-    public static boolean updateDiscountStatus(String name) {
+    public static boolean updateDiscountStatusByName(String name) {
         String query = "UPDATE Company SET isDiscountEnabled = NOT isDiscountEnabled WHERE name = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, name);
             preparedStatement.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public static boolean deleteCompanyByName(String name) {
+        String deleteProductsQuery = "DELETE FROM Product WHERE company_name = ?";
+        String deleteCompanyQuery = "DELETE FROM Company WHERE name = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement deleteProductsStmt = connection.prepareStatement(deleteProductsQuery); PreparedStatement deleteCompanyStmt = connection.prepareStatement(deleteCompanyQuery)) {
+
+            deleteProductsStmt.setString(1, name);
+            deleteProductsStmt.executeUpdate();
+
+            deleteCompanyStmt.setString(1, name);
+            deleteCompanyStmt.executeUpdate();
+
             return true;
 
         } catch (SQLException e) {

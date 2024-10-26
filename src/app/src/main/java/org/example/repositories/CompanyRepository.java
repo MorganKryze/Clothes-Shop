@@ -5,6 +5,14 @@ import org.example.products.Company;
 public interface CompanyRepository {
 
     /**
+     * Creates a new company.
+     *
+     * @param company the company to create
+     * @return true if the company was created successfully, false otherwise
+     */
+    public boolean createCompany(Company company);
+
+    /**
      * Retrieves a company by its name.
      *
      * @param name the name of the company
@@ -19,7 +27,7 @@ public interface CompanyRepository {
      * @param newName the new name for the company
      * @return true if the update was successful, false otherwise
      */
-    public boolean updateName(String oldName, String newName);
+    public boolean updateCompanyNameByName(String oldName, String newName);
 
     /**
      * Retrieves the capital of a company.
@@ -27,16 +35,16 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the capital of the company
      */
-    public String getCompanyCapital(String name);
+    public String getCompanyCapitalByName(String name);
 
     /**
      * Updates the capital of a company.
      *
-     * @param name    the name of the company
+     * @param name the name of the company
      * @param capital the new capital amount
      * @return true if the update was successful, false otherwise
      */
-    public boolean updateCapital(String name, int capital);
+    public boolean updateCompanyCapitalByName(String name, int capital);
 
     /**
      * Retrieves the income of a company.
@@ -44,16 +52,16 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the income of the company
      */
-    public String getCompanyIncome(String name);
+    public String getCompanyIncomeByName(String name);
 
     /**
      * Updates the income of a company.
      *
-     * @param name   the name of the company
+     * @param name the name of the company
      * @param income the new income amount
      * @return true if the update was successful, false otherwise
      */
-    public boolean updateIncome(String name, int income);
+    public boolean updateCompanyIncomeByName(String name, double income);
 
     /**
      * Retrieves the costs of a company.
@@ -61,16 +69,16 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the costs of the company
      */
-    public String getCompanyCosts(String name);
+    public String getCompanyCostsByName(String name);
 
     /**
      * Updates the costs of a company.
      *
-     * @param name  the name of the company
+     * @param name the name of the company
      * @param costs the new costs amount
      * @return true if the update was successful, false otherwise
      */
-    public boolean updateCosts(String name, int costs);
+    public boolean updateCompanyCostsByName(String name, double costs);
 
     /**
      * Retrieves the discount status of a company.
@@ -78,7 +86,7 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the discount status of the company
      */
-    public String getCompanyDiscountStatus(String name);
+    public String getCompanyDiscountStatusByName(String name);
 
     /**
      * Updates the discount status of a company.
@@ -86,6 +94,14 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return true if the update was successful, false otherwise
      */
-    public boolean updateDiscountStatus(String name);
+    public boolean updateDiscountStatusByName(String name);
+
+    /**
+     * Deletes a company by its name. * * @param name the name of the company
+     *
+     * @param name the name of the company
+     * @return true if the company was deleted successfully, false otherwise
+     */
+    public boolean deleteCompanyByName(String name);
 
 }

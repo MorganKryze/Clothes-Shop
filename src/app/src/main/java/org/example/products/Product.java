@@ -302,7 +302,7 @@ public abstract class Product {
             if (ProductRepositoryImplementation.removeFromProductStockByUUID(getUuid(), numberOfItems)) {
                 removeFromStock(numberOfItems);
             }
-            if (CompanyRepositoryImplementation.updateIncome(getCompany().getName(), numberOfItems * getPrice())) {
+            if (CompanyRepositoryImplementation.updateCompanyIncomeByName(getCompany().getName(), numberOfItems * getPrice())) {
                 getCompany().addIncome(numberOfItems * getPrice());
             }
             return true;
@@ -327,7 +327,7 @@ public abstract class Product {
             if (ProductRepositoryImplementation.addToProductStockByUUID(uuid, numberOfItems)) {
                 addToStock(numberOfItems);
             }
-            if (CompanyRepositoryImplementation.updateCosts(getCompany().getName(), numberOfItems * getCost())) {
+            if (CompanyRepositoryImplementation.updateCompanyCostsByName(getCompany().getName(), numberOfItems * getCost())) {
                 getCompany().addIncome(numberOfItems * getCost());
             }
             return true;
