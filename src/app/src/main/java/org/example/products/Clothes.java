@@ -14,7 +14,7 @@ import org.example.repositories.ProductRepositoryImplementation;
  * </p>
  */
 public class Clothes extends Product implements Discountable {
-    private static double discountPercentage = 0.7;
+    private static final double DISCOUNT_PERCENTAGE = 0.7;
     private int clothingSize;
 
     /**
@@ -30,7 +30,7 @@ public class Clothes extends Product implements Discountable {
      * @param size     the size of the clothing
      * @throws IllegalArgumentException if the clothing size is invalid
      */
-    public Clothes(String uuid, String name, String iconPath, int price, int cost, int stock, Company company,
+    public Clothes(String uuid, String name, String iconPath, double price, double cost, int stock, Company company,
             int size) {
         super(uuid, name, iconPath, price, cost, stock, company);
         try {
@@ -87,31 +87,17 @@ public class Clothes extends Product implements Discountable {
     }
 
     /**
-     * Returns the price of the clothing as an integer.
+     * Returns the price of the accessory as a double.
      * If the company's discount is enabled, the discounted price is returned.
      *
-     * @return the price of the clothing
+     * @return the price of the accessory
      */
     @Override
-    public int getIntPrice() {
+    public double getPrice() {
         if (super.getCompany().isDiscountEnabled()) {
-            return applyDiscount(super.getIntPrice());
+            return applyDiscount(super.getPrice());
         }
-        return super.getIntPrice();
-    }
-
-    /**
-     * Returns the price of the clothing as a double.
-     * If the company's discount is enabled, the discounted price is returned.
-     *
-     * @return the price of the clothing
-     */
-    @Override
-    public double getDoublePrice() {
-        if (super.getCompany().isDiscountEnabled()) {
-            return applyDiscount(super.getIntPrice()) / 100.0;
-        }
-        return super.getDoublePrice();
+        return super.getPrice();
     }
 
     /**
@@ -121,8 +107,8 @@ public class Clothes extends Product implements Discountable {
      * @return the discounted price
      */
     @Override
-    public int applyDiscount(int price) {
-        return (int) (price * discountPercentage);
+    public double applyDiscount(double price) {
+        return price * DISCOUNT_PERCENTAGE;
     }
 
     /**

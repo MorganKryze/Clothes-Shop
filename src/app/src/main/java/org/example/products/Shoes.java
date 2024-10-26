@@ -13,7 +13,7 @@ import org.example.repositories.ProductRepositoryImplementation;
  * </p>
  */
 public class Shoes extends Product implements Discountable {
-    private static double discountPercentage = 0.8;
+    private static final double DISCOUNT_PERCENTAGE = 0.8;
     private int shoeSize;
 
     /**
@@ -29,7 +29,7 @@ public class Shoes extends Product implements Discountable {
      * @param shoeSize the size of the shoes
      * @throws IllegalArgumentException if the shoe size is invalid
      */
-    public Shoes(String uuid, String name, String iconPath, int price, int cost, int stock, Company company,
+    public Shoes(String uuid, String name, String iconPath, double price, double cost, int stock, Company company,
             int shoeSize) {
         super(uuid, name, iconPath, price, cost, stock, company);
         try {
@@ -63,7 +63,7 @@ public class Shoes extends Product implements Discountable {
             if (!isSizeValid(shoeSize)) {
                 throw new IllegalArgumentException("wrong size!");
             }
-            if (ProductRepositoryImplementation.updateShoeSize(super.getUuid(), shoeSize)) {
+            if (ProductRepositoryImplementation.updateShoeSizeByUUID(super.getUuid(), shoeSize)) {
                 this.shoeSize = shoeSize;
             }
             return true;
@@ -84,31 +84,17 @@ public class Shoes extends Product implements Discountable {
     }
 
     /**
-     * Returns the price of the shoes as an integer.
+     * Returns the price of the accessory as a double.
      * If the company's discount is enabled, the discounted price is returned.
      *
-     * @return the price of the shoes
+     * @return the price of the accessory
      */
     @Override
-    public int getIntPrice() {
+    public double getPrice() {
         if (super.getCompany().isDiscountEnabled()) {
-            return applyDiscount(super.getIntPrice());
+            return applyDiscount(super.getPrice());
         }
-        return super.getIntPrice();
-    }
-
-    /**
-     * Returns the price of the shoes as a double.
-     * If the company's discount is enabled, the discounted price is returned.
-     *
-     * @return the price of the shoes
-     */
-    @Override
-    public double getDoublePrice() {
-        if (super.getCompany().isDiscountEnabled()) {
-            return applyDiscount(super.getIntPrice()) / 100.0;
-        }
-        return super.getDoublePrice();
+        return super.getPrice();
     }
 
     /**
@@ -118,8 +104,8 @@ public class Shoes extends Product implements Discountable {
      * @return the discounted price
      */
     @Override
-    public int applyDiscount(int price) {
-        return (int) (price * discountPercentage);
+    public double applyDiscount(double price) {
+        return price * DISCOUNT_PERCENTAGE;
     }
 
     /**

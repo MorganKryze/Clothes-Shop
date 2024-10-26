@@ -16,5 +16,5 @@ public interface Discountable {
      * @param price the original price before the discount
      * @return the price after the discount has been applied
      */
-    int applyDiscount(int price);
+    double applyDiscount(double price);
 }

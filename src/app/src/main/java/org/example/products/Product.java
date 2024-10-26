@@ -16,8 +16,8 @@ public abstract class Product {
     private String uuid;
     private String name;
     private String iconPath;
-    private int price;
-    private int cost;
+    private double price;
+    private double cost;
     private int stock;
     private Company company;
 
@@ -33,7 +33,7 @@ public abstract class Product {
      * @param company  the company associated with the product
      * @throws IllegalArgumentException if any of the input values are invalid
      */
-    public Product(String uuid, String name, String iconPath, int price, int cost, int stock, Company company) {
+    public Product(String uuid, String name, String iconPath, double price, double cost, int stock, Company company) {
         try {
             this.uuid = uuid;
             if (name == null) {
@@ -105,7 +105,7 @@ public abstract class Product {
             }
         }
         try {
-            if (ProductRepositoryImplementation.updateName(uuid, name)) {
+            if (ProductRepositoryImplementation.updateProductNameByUUID(getUuid(), getName())) {
                 this.name = name;
                 return true;
             }
@@ -132,7 +132,7 @@ public abstract class Product {
      */
     public boolean updateIconPath(String iconPath) {
         try {
-            if (ProductRepositoryImplementation.updateIconPath(uuid, iconPath)) {
+            if (ProductRepositoryImplementation.updateProductIconPathByUUID(getUuid(), getIconPath())) {
                 this.iconPath = iconPath;
                 return true;
             }
@@ -147,17 +147,23 @@ public abstract class Product {
      *
      * @return the price of the product
      */
-    public double getDoublePrice() {
-        return price / 100.0;
+    public double getPrice() {
+        return price;
     }
 
-    /**
-     * Returns the price of the product as an integer.
-     *
-     * @return the price of the product
-     */
-    public int getIntPrice() {
-        return price;
+    public boolean updatePrice(double price) {
+        try {
+            if (price < 0) {
+                throw new IllegalArgumentException("Negative price!");
+            }
+            if (ProductRepositoryImplementation.updateProductPriceByUUID(getUuid(), getCost())) {
+                this.price = price;
+                return true;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     /**
@@ -165,16 +171,7 @@ public abstract class Product {
      *
      * @return the cost of the product
      */
-    public double getDoubleCost() {
-        return cost / 100.0;
-    }
-
-    /**
-     * Returns the cost of the product as an integer.
-     *
-     * @return the cost of the product
-     */
-    public int getIntCost() {
+    public double getCost() {
         return cost;
     }
 
@@ -185,12 +182,12 @@ public abstract class Product {
      * @return {@code true} if the update was successful, {@code false} otherwise
      * @throws IllegalArgumentException if the cost is negative
      */
-    public boolean updateCost(int cost) {
+    public boolean updateCost(double cost) {
         try {
             if (cost < 0) {
                 throw new IllegalArgumentException("Negative price!");
             }
-            if (ProductRepositoryImplementation.updateCost(uuid, cost)) {
+            if (ProductRepositoryImplementation.updateProductCostByUUID(getUuid(), getCost())) {
                 this.cost = cost;
                 return true;
             }
@@ -221,7 +218,7 @@ public abstract class Product {
             if (items < 0) {
                 throw new IllegalArgumentException("Negative items number.");
             }
-            if (ProductRepositoryImplementation.updateStock(uuid, items)) {
+            if (ProductRepositoryImplementation.updateProductStockByUUID(getUuid(), getStock())) {
                 this.stock = items;
                 return true;
             }
@@ -243,7 +240,7 @@ public abstract class Product {
             if (items < 0) {
                 throw new IllegalArgumentException("Negative items number.");
             }
-            if (ProductRepositoryImplementation.addToStock(uuid, items)) {
+            if (ProductRepositoryImplementation.addToProductStockByUUID(getUuid(), items)) {
                 this.stock += items;
                 return true;
             }
@@ -268,7 +265,7 @@ public abstract class Product {
             } else if (items > this.stock) {
                 throw new IllegalArgumentException("Not enough items in stock.");
             }
-            if (ProductRepositoryImplementation.removeFromStock(uuid, items)) {
+            if (ProductRepositoryImplementation.removeFromProductStockByUUID(getUuid(), items)) {
                 this.stock -= items;
                 return true;
             }
@@ -302,11 +299,11 @@ public abstract class Product {
             } else if (numberOfItems > this.stock) {
                 throw new IllegalArgumentException("Not enough items in stock.");
             }
-            if (ProductRepositoryImplementation.removeFromStock(uuid, numberOfItems)) {
+            if (ProductRepositoryImplementation.removeFromProductStockByUUID(getUuid(), numberOfItems)) {
                 removeFromStock(numberOfItems);
             }
-            if (CompanyRepositoryImplementation.updateIncome(company.getName(), numberOfItems * getIntPrice())) {
-                company.addIncome(numberOfItems * getIntPrice());
+            if (CompanyRepositoryImplementation.updateIncome(getCompany().getName(), numberOfItems * getPrice())) {
+                getCompany().addIncome(numberOfItems * getPrice());
             }
             return true;
         } catch (IllegalArgumentException e) {
@@ -327,11 +324,11 @@ public abstract class Product {
             if (numberOfItems < 0) {
                 throw new IllegalArgumentException("Negative items number.");
             }
-            if (ProductRepositoryImplementation.addToStock(uuid, numberOfItems)) {
+            if (ProductRepositoryImplementation.addToProductStockByUUID(uuid, numberOfItems)) {
                 addToStock(numberOfItems);
             }
-            if (CompanyRepositoryImplementation.updateCosts(company.getName(), numberOfItems * getIntCost())) {
-                company.addIncome(numberOfItems * getIntCost());
+            if (CompanyRepositoryImplementation.updateCosts(getCompany().getName(), numberOfItems * getCost())) {
+                getCompany().addIncome(numberOfItems * getCost());
             }
             return true;
         } catch (IllegalArgumentException e) {
@@ -348,6 +345,6 @@ public abstract class Product {
     @Override
     public String toString() {
         return String.format("Purchase_price=%s \n sell_price=%s \n stock=%s",
-                getDoublePrice(), getDoubleCost(), getStock());
+                getPrice(), getCost(), getStock());
     }
 }

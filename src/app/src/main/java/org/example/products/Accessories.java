@@ -13,7 +13,7 @@ import org.example.interfaces.Discountable;
  * </p>
  */
 public class Accessories extends Product implements Discountable {
-    private static double discountPercentage = 0.5;
+    private static final double DISCOUNT_PERCENTAGE = 0.5;
 
     /**
      * Constructs a new {@code Accessories} object with the specified attributes.
@@ -26,22 +26,9 @@ public class Accessories extends Product implements Discountable {
      * @param stock    the stock quantity of the product
      * @param company  the company associated with the product
      */
-    public Accessories(String uuid, String name, String iconPath, int price, int cost, int stock, Company company) {
+    public Accessories(String uuid, String name, String iconPath, double price, double cost, int stock,
+            Company company) {
         super(uuid, name, iconPath, price, cost, stock, company);
-    }
-
-    /**
-     * Returns the price of the accessory as an integer.
-     * If the company's discount is enabled, the discounted price is returned.
-     *
-     * @return the price of the accessory
-     */
-    @Override
-    public int getIntPrice() {
-        if (super.getCompany().isDiscountEnabled()) {
-            return applyDiscount(super.getIntPrice());
-        }
-        return super.getIntPrice();
     }
 
     /**
@@ -51,11 +38,11 @@ public class Accessories extends Product implements Discountable {
      * @return the price of the accessory
      */
     @Override
-    public double getDoublePrice() {
+    public double getPrice() {
         if (super.getCompany().isDiscountEnabled()) {
-            return applyDiscount(super.getIntPrice()) / 100.0;
+            return applyDiscount(super.getPrice());
         }
-        return super.getDoublePrice();
+        return super.getPrice();
     }
 
     /**
@@ -65,8 +52,8 @@ public class Accessories extends Product implements Discountable {
      * @return the discounted price
      */
     @Override
-    public int applyDiscount(int price) {
-        return (int) (price * discountPercentage);
+    public double applyDiscount(double price) {
+        return price * DISCOUNT_PERCENTAGE;
     }
 
     /**
