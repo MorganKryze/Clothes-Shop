@@ -16,6 +16,8 @@ public class Shoes extends Product implements Discountable {
     private static final double DISCOUNT_PERCENTAGE = 0.8;
     private int shoeSize;
 
+    private ProductRepositoryImplementation productRepositoryImplementation = new ProductRepositoryImplementation();
+
     /**
      * Constructs a new {@code Shoes} object with the specified attributes.
      *
@@ -63,7 +65,7 @@ public class Shoes extends Product implements Discountable {
             if (!isSizeValid(shoeSize)) {
                 throw new IllegalArgumentException("wrong size!");
             }
-            if (ProductRepositoryImplementation.updateShoeSizeByUUID(super.getUuid(), shoeSize)) {
+            if (productRepositoryImplementation.updateShoeSizeByUUID(super.getUuid(), shoeSize)) {
                 this.shoeSize = shoeSize;
             }
             return true;

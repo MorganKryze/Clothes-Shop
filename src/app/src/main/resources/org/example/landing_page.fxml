@@ -93,10 +93,7 @@
         <HBox alignment="CENTER" prefHeight="20.0" prefWidth="800.0" spacing="100.0" BorderPane.alignment="CENTER">
             <children>
                 <Label fx:id="foot" prefHeight="17.0" text="Capital : 1 000 000 Income : 0  Cost : 0" />
-                <Button fx:id="statsbutton" mnemonicParsing="false" onAction="#updatetxt" prefHeight="17.0" prefWidth="81.0" text="reload stats">
-                    <font>
-                        <Font size="8.0" />
-                    </font></Button>
+                
                 <Label text="ALL RIGHTS RESERVED" />
             </children>
         </HBox>

@@ -40,6 +40,7 @@ public class Controller implements Initializable {
     private Label foot;
 
     public static CompanyRepositoryImplementation companyRepositoryImplementation = new CompanyRepositoryImplementation();
+    public static ProductRepositoryImplementation productRepositoryImplementation = new ProductRepositoryImplementation();
     public static Company company;
 
     @Override
@@ -99,9 +100,9 @@ public class Controller implements Initializable {
     private List<Clothes> init_liste_habits() {
         List<Clothes> liste_retour = new ArrayList<>();
 
-        Clothes dress = ProductRepositoryImplementation.getClothesByUUID("40e6215d-b5c6-4896-987c-f30f3678f608");
-        Clothes shirt = ProductRepositoryImplementation.getClothesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1c");
-        Clothes jean = ProductRepositoryImplementation.getClothesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1d");
+        Clothes dress = productRepositoryImplementation.getClothesByUUID("40e6215d-b5c6-4896-987c-f30f3678f608");
+        Clothes shirt = productRepositoryImplementation.getClothesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1c");
+        Clothes jean = productRepositoryImplementation.getClothesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1d");
 
         liste_retour.add(dress);
         liste_retour.add(shirt);
@@ -112,11 +113,11 @@ public class Controller implements Initializable {
 
     private List<Accessories> init_liste_accessoires() {
         List<Accessories> liste_retour = new ArrayList<>();
-        Accessories clock = ProductRepositoryImplementation
+        Accessories clock = productRepositoryImplementation
                 .getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1e");
-        Accessories parachute = ProductRepositoryImplementation
+        Accessories parachute = productRepositoryImplementation
                 .getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1f");
-        Accessories sunglasses = ProductRepositoryImplementation
+        Accessories sunglasses = productRepositoryImplementation
                 .getAccessoriesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1g");
 
         liste_retour.add(clock);
@@ -128,9 +129,9 @@ public class Controller implements Initializable {
 
     private List<Shoes> init_liste_chaussures() {
         List<Shoes> liste_retour = new ArrayList<>();
-        Shoes classy = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1h");
-        Shoes work = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1i");
-        Shoes aero = ProductRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1j");
+        Shoes classy = productRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1h");
+        Shoes work = productRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1i");
+        Shoes aero = productRepositoryImplementation.getShoesByUUID("f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1j");
 
         liste_retour.add(classy);
         liste_retour.add(work);
