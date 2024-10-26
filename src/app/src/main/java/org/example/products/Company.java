@@ -262,6 +262,6 @@ public class Company {
 
     @Override
     public String toString() {
-        return String.format("Capital: %s  Income: %s  Cost: %s", getCapital(), getIncome(), getCosts());
+        return String.format("Capital: %s  |  Income: %s  |  Costs: %s", getCapital(), getIncome(), getCosts());
     }
 }

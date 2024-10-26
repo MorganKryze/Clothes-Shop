@@ -350,7 +350,7 @@ public abstract class Product {
      */
     @Override
     public String toString() {
-        return String.format("Purchase_price=%s \n sell_price=%s \n stock=%s",
+        return String.format("Purchase_price : %s€ \nsell_price : %s€ \nstock : %s",
                 getPrice(), getCost(), getStock());
     }
 }

@@ -18,7 +18,7 @@
     xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Controller">
     <top>
         <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0"
-            prefWidth="800.0" BorderPane.alignment="CENTER" spacing="10.0" style="-fx-padding: 10;">
+            prefWidth="1000.0" BorderPane.alignment="CENTER" spacing="10.0" style="-fx-padding: 10;">
             <children>
                 <TextField fx:id="searchField" alignment="CENTER" promptText="Search" />
                 <ImageView fx:id="searchIcon" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true"
@@ -51,7 +51,6 @@
                                 <Font name="Berlin Sans FB" size="18.0" />
                             </font>
                         </Label>
-                        <Button fx:id="loginButton" text="Login" />
                     </children>
                 </HBox>
             </children>
@@ -102,8 +101,7 @@
             BorderPane.alignment="CENTER" style="-fx-padding: 10;">
             <children>
                 <Label fx:id="foot" prefHeight="17.0"
-                    text="Capital : 1 000 000 Income : 0  Cost : 0" />
-                <Label text="ALL RIGHTS RESERVED" />
+                    text="Capital : 1 000 000 Income : 0  Costs : 0" />
             </children>
         </HBox>
     </bottom>

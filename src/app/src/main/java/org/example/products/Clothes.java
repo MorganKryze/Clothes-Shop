@@ -120,6 +120,6 @@ public class Clothes extends Product implements Discountable {
      */
     @Override
     public String toString() {
-        return super.toString() + "\nsize:" + getClothingSize();
+        return super.toString() + "\nsize : " + getClothingSize();
     }
 }
