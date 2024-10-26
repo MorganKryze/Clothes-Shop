@@ -13,48 +13,53 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+    prefHeight="620.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Controller">
     <top>
-        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0"
+            prefWidth="800.0" BorderPane.alignment="CENTER" spacing="10.0" style="-fx-padding: 10;">
             <children>
-                <Pane prefHeight="65.0" prefWidth="21.0" />
-                <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="37.0" prefWidth="211.0">
-                    <children>
-                        <TextField alignment="CENTER" promptText="Search" />
-                        <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@search.jpg" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </HBox>
-                <Pane prefHeight="65.0" prefWidth="21.0" />
-                <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="44.0" prefWidth="6.0" />
-                <Label alignment="CENTER" prefHeight="65.0" prefWidth="316.0" text="Women Shop JavaFX Project" textFill="#3c00ff">
+                <TextField fx:id="searchField" alignment="CENTER" promptText="Search" />
+                <ImageView fx:id="searchIcon" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true"
+                    preserveRatio="true">
+                    <image>
+                        <Image url="@search.jpg" />
+                    </image>
+                </ImageView>
+                <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="44.0"
+                    prefWidth="6.0" />
+                <Label fx:id="titleLabel" alignment="CENTER" prefHeight="65.0" prefWidth="316.0"
+                    text="Women Shop JavaFX Project" textFill="#3c00ff">
                     <font>
                         <Font name="Agency FB Bold" size="30.0" />
                     </font>
                 </Label>
-                <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="44.0" prefWidth="6.0" />
+                <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="44.0"
+                    prefWidth="6.0" />
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="userIcon" fitHeight="30.0" fitWidth="30.0"
+                            pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@th.jpg" />
                             </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="83.0" text="Guest User">
+                        <Label fx:id="userLabel" prefHeight="21.0" prefWidth="83.0"
+                            text="Guest User">
                             <font>
                                 <Font name="Berlin Sans FB" size="18.0" />
                             </font>
                         </Label>
+                        <Button fx:id="loginButton" text="Login" />
                     </children>
                 </HBox>
             </children>
         </HBox>
     </top>
     <center>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER"
+            spacing="10.0" style="-fx-padding: 10;">
             <children>
                 <Label alignment="CENTER" text="Clothes" textFill="#8700d0">
                     <font>
@@ -63,7 +68,8 @@
                 </Label>
                 <ScrollPane prefHeight="200.0" prefWidth="200.0">
                     <content>
-                        <HBox fx:id="boite_habits" alignment="CENTER" prefHeight="139.0" prefWidth="900.0" spacing="20.0" />
+                        <HBox fx:id="boite_habits" alignment="CENTER" prefHeight="139.0"
+                            prefWidth="900.0" spacing="20.0" />
                     </content>
                 </ScrollPane>
                 <Label text="Shoes" textFill="#00c3ff">
@@ -73,7 +79,8 @@
                 </Label>
                 <ScrollPane prefHeight="200.0" prefWidth="200.0">
                     <content>
-                        <HBox fx:id="boite_chaussures" alignment="CENTER" prefHeight="139.0" prefWidth="900.0" spacing="20.0" />
+                        <HBox fx:id="boite_chaussures" alignment="CENTER" prefHeight="139.0"
+                            prefWidth="900.0" spacing="20.0" />
                     </content>
                 </ScrollPane>
                 <Label text="Accessories" textFill="#1bce39">
@@ -83,17 +90,19 @@
                 </Label>
                 <ScrollPane prefHeight="200.0" prefWidth="200.0">
                     <content>
-                        <HBox fx:id="boite_accessoires" alignment="CENTER" prefHeight="139.0" prefWidth="900.0" spacing="20.0" />
+                        <HBox fx:id="boite_accessoires" alignment="CENTER" prefHeight="139.0"
+                            prefWidth="900.0" spacing="20.0" />
                     </content>
                 </ScrollPane>
             </children>
         </VBox>
     </center>
     <bottom>
-        <HBox alignment="CENTER" prefHeight="20.0" prefWidth="800.0" spacing="100.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" prefHeight="20.0" prefWidth="800.0" spacing="100.0"
+            BorderPane.alignment="CENTER" style="-fx-padding: 10;">
             <children>
-                <Label fx:id="foot" prefHeight="17.0" text="Capital : 1 000 000 Income : 0  Cost : 0" />
-                
+                <Label fx:id="foot" prefHeight="17.0"
+                    text="Capital : 1 000 000 Income : 0  Cost : 0" />
                 <Label text="ALL RIGHTS RESERVED" />
             </children>
         </HBox>

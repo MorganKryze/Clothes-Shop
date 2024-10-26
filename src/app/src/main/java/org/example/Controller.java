@@ -52,7 +52,7 @@ public class Controller implements Initializable {
         try {
             for (int i = 0; i < init_liste_habits().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Product.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
                 HBox CardLayout = fxmlLoader.load();
                 ProductController miniccontrollerbut = fxmlLoader.getController();
                 miniccontrollerbut.setData(init_liste_habits().get(i), foot, company);
@@ -66,7 +66,7 @@ public class Controller implements Initializable {
         try {
             for (int i = 0; i < init_liste_accessoires().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Product.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
                 HBox CardLayout = fxmlLoader.load();
                 ProductController miniccontrollerbut = fxmlLoader.getController();
                 miniccontrollerbut.setData(init_liste_accessoires().get(i), foot, company);
@@ -80,7 +80,7 @@ public class Controller implements Initializable {
         try {
             for (int i = 0; i < init_liste_chaussures().size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Product.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
                 HBox CardLayout = fxmlLoader.load();
                 ProductController miniccontrollerbut = fxmlLoader.getController();
                 miniccontrollerbut.setData(init_liste_chaussures().get(i), foot, company);
