@@ -40,10 +40,12 @@ public class Controller implements Initializable {
     private Label foot;
 
     public static CompanyRepositoryImplementation companyRepositoryImplementation = new CompanyRepositoryImplementation();
-    public static final Company company = companyRepositoryImplementation.getCompanyByName("Clothes shop");
+    public static Company company;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        company = companyRepositoryImplementation.getCompanyByName("Clothes shop");
 
         liste_habits = new ArrayList<>(init_liste_habits());
         try {
