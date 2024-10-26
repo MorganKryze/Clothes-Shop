@@ -1,8 +1,8 @@
 package org.example.repositories;
 
-import org.example.products.Accessories;
-import org.example.products.Clothes;
-import org.example.products.Shoes;
+import org.example.models.Accessories;
+import org.example.models.Clothes;
+import org.example.models.Shoes;
 
 public interface ProductRepository {
 
@@ -19,7 +19,7 @@ public interface ProductRepository {
      * @param clothingSize the clothing size of the product
      * @return true if the product was created successfully, false otherwise
      */
-    public boolean createProduct(String id, String name, String iconPath, double price, double cost, int stock, String company, String category, int shoeSize, int clothingSize);
+    public boolean createProduct(String id, String name, double price, double cost, int stock, String company, String category, int shoeSize, int clothingSize);
 
     /**
      * Retrieves a cloth by its UUID.
@@ -61,23 +61,6 @@ public interface ProductRepository {
      * @return true if the update was successful, false otherwise
      */
     public boolean updateProductNameByUUID(String uuid, String newName);
-
-    /**
-     * Retrieves the icon path of a product.
-     *
-     * @param uuid the UUID of the product
-     * @return the icon path of the product
-     */
-    public String getProductIconPathByUUID(String uuid);
-
-    /**
-     * Updates the icon path of a product.
-     *
-     * @param uuid the UUID of the product
-     * @param iconPath the new icon path for the product
-     * @return true if the update was successful, false otherwise
-     */
-    public boolean updateProductIconPathByUUID(String uuid, String iconPath);
 
     /**
      * Retrieves the price of a product.

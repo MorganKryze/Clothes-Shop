@@ -11,7 +11,6 @@ CREATE TABLE Product (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    icon_path VARCHAR(255),
     category VARCHAR(255),
     price DOUBLE PRECISION NOT NULL,
     cost DOUBLE PRECISION NOT NULL,
@@ -35,7 +34,6 @@ INSERT INTO Product (
 VALUES (
         '40e6215d-b5c6-4896-987c-f30f3678f608',
         'Winter Dress',
-        'batman.jpg',
         'clothes',
         100.0,
         50.0,
@@ -46,7 +44,6 @@ VALUES (
     (
         'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1c',
         'Professional Shirt',
-        'unicorn.jpg',
         'clothes',
         50.0,
         25.0,
@@ -57,7 +54,6 @@ VALUES (
     (
         'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1d',
         'Not-Used Jean',
-        'jean.jpg',
         'clothes',
         100.0,
         50.0,
@@ -78,7 +74,6 @@ INSERT INTO Product (
 VALUES (
         'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1e',
         'Cheap Little Clock',
-        'Rolex.png',
         'accessories',
         100.0,
         50.0,
@@ -88,7 +83,6 @@ VALUES (
     (
         'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1f',
         'Portable Parachute',
-        'parachute.jpg',
         'accessories',
         50.0,
         25.0,
@@ -98,7 +92,6 @@ VALUES (
     (
         'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1g',
         'Sunglasses',
-        'sunglasses.jpg',
         'accessories',
         100.0,
         50.0,
@@ -119,7 +112,6 @@ INSERT INTO Product (
 VALUES (
         'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1h',
         'Classy shoe',
-        'ffs.jpg',
         'shoes',
         100.0,
         50.0,
@@ -130,7 +122,6 @@ VALUES (
     (
         'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1i',
         'Work Shoe',
-        'work.jpg',
         'shoes',
         50.0,
         25.0,
@@ -141,7 +132,6 @@ VALUES (
     (
         'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1j',
         'Aerodynamic shoe',
-        'aero.jpg',
         'shoes',
         100.0,
         50.0,

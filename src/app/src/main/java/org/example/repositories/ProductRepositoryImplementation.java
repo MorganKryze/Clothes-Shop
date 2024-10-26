@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.example.products.Accessories;
-import org.example.products.Clothes;
-import org.example.products.Shoes;
+import org.example.models.Accessories;
+import org.example.models.Clothes;
+import org.example.models.Shoes;
 
 public class ProductRepositoryImplementation implements ProductRepository {
 
@@ -22,7 +22,7 @@ public class ProductRepositoryImplementation implements ProductRepository {
     }
 
     @Override
-    public boolean createProduct(String id, String name, String iconPath, double price, double cost, int stock, String company, String category, int shoeSize, int clothingSize) {
+    public boolean createProduct(String id, String name, double price, double cost, int stock, String company, String category, int shoeSize, int clothingSize) {
         String query = "INSERT INTO Product (id, name, icon_path, price, cost, stock, company_name, category, shoe_size, clothing_size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(URL, USER,
@@ -30,7 +30,6 @@ public class ProductRepositoryImplementation implements ProductRepository {
 
             preparedStatement.setString(1, id);
             preparedStatement.setString(2, name);
-            preparedStatement.setString(3, iconPath);
             preparedStatement.setDouble(4, price);
             preparedStatement.setDouble(5, cost);
             preparedStatement.setInt(6, stock);
@@ -59,7 +58,6 @@ public class ProductRepositoryImplementation implements ProductRepository {
                 Clothes clothes = new Clothes(
                         resultSet.getString("id"),
                         resultSet.getString("name"),
-                        resultSet.getString("icon_path"),
                         resultSet.getDouble("price"),
                         resultSet.getDouble("cost"),
                         resultSet.getInt("stock"),
@@ -89,7 +87,6 @@ public class ProductRepositoryImplementation implements ProductRepository {
                 Shoes shoes = new Shoes(
                         resultSet.getString("id"),
                         resultSet.getString("name"),
-                        resultSet.getString("icon_path"),
                         resultSet.getDouble("price"),
                         resultSet.getDouble("cost"),
                         resultSet.getInt("stock"),
@@ -119,7 +116,6 @@ public class ProductRepositoryImplementation implements ProductRepository {
                 Accessories accessories = new Accessories(
                         resultSet.getString("id"),
                         resultSet.getString("name"),
-                        resultSet.getString("icon_path"),
                         resultSet.getDouble("price"),
                         resultSet.getDouble("cost"),
                         resultSet.getInt("stock"),
@@ -161,41 +157,6 @@ public class ProductRepositoryImplementation implements ProductRepository {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, newName);
-            preparedStatement.setString(2, uuid);
-            preparedStatement.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public String getProductIconPathByUUID(String uuid) {
-        String query = "SELECT icon_path FROM Product WHERE id = ?";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, uuid);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                return resultSet.getString("icon_path");
-            }
-
-        } catch (SQLException e) {
-        }
-
-        return null;
-    }
-
-    @Override
-    public boolean updateProductIconPathByUUID(String uuid, String iconPath) {
-        String query = "UPDATE Product SET icon_path = ? WHERE id = ?";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, iconPath);
             preparedStatement.setString(2, uuid);
             preparedStatement.executeUpdate();
             return true;

@@ -1,6 +1,6 @@
 package org.example.repositories;
 
-import org.example.products.Company;
+import org.example.models.Company;
 
 public interface CompanyRepository {
 

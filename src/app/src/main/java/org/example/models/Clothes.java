@@ -1,19 +1,19 @@
-package org.example.products;
+package org.example.models;
 
 import org.example.interfaces.Discountable;
 import org.example.repositories.ProductRepositoryImplementation;
 
 /**
  * The {@code Clothes} class represents a type of product that is a piece of
- * clothing.
- * It extends the {@code Product} class and implements the {@code Discountable}
- * interface.
+ * clothing. It extends the {@code Product} class and implements the
+ * {@code Discountable} interface.
  * <p>
  * This class includes additional attributes and methods specific to clothing,
  * such as clothing size.
  * </p>
  */
 public class Clothes extends Product implements Discountable {
+
     private static final double DISCOUNT_PERCENTAGE = 0.7;
     private int clothingSize;
 
@@ -22,19 +22,19 @@ public class Clothes extends Product implements Discountable {
     /**
      * Constructs a new {@code Clothes} object with the specified attributes.
      *
-     * @param uuid     the unique identifier of the product
-     * @param name     the name of the product
+     * @param uuid the unique identifier of the product
+     * @param name the name of the product
      * @param iconPath the path to the product's icon
-     * @param price    the price of the product
-     * @param cost     the cost of the product
-     * @param stock    the stock quantity of the product
-     * @param company  the company associated with the product
-     * @param size     the size of the clothing
+     * @param price the price of the product
+     * @param cost the cost of the product
+     * @param stock the stock quantity of the product
+     * @param company the company associated with the product
+     * @param size the size of the clothing
      * @throws IllegalArgumentException if the clothing size is invalid
      */
-    public Clothes(String uuid, String name, String iconPath, double price, double cost, int stock, Company company,
+    public Clothes(String uuid, String name, double price, double cost, int stock, Company company,
             int size) {
-        super(uuid, name, iconPath, price, cost, stock, company);
+        super(uuid, name, price, cost, stock, company);
         try {
             if (!isSizeValid(size)) {
                 throw new IllegalArgumentException("wrong size!");
@@ -59,7 +59,8 @@ public class Clothes extends Product implements Discountable {
      * Updates the size of the clothing.
      *
      * @param size the new clothing size
-     * @return {@code true} if the update was successful, {@code false} otherwise
+     * @return {@code true} if the update was successful, {@code false}
+     * otherwise
      * @throws IllegalArgumentException if the clothing size is invalid
      */
     public boolean updateSize(int size) {
@@ -89,8 +90,8 @@ public class Clothes extends Product implements Discountable {
     }
 
     /**
-     * Returns the price of the accessory as a double.
-     * If the company's discount is enabled, the discounted price is returned.
+     * Returns the price of the accessory as a double. If the company's discount
+     * is enabled, the discounted price is returned.
      *
      * @return the price of the accessory
      */

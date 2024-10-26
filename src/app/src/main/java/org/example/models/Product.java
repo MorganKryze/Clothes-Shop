@@ -1,4 +1,4 @@
-package org.example.products;
+package org.example.models;
 
 import org.example.repositories.ProductRepositoryImplementation;
 
@@ -15,7 +15,6 @@ public abstract class Product {
 
     private String uuid;
     private String name;
-    private String iconPath;
     private double price;
     private double cost;
     private int stock;
@@ -28,14 +27,13 @@ public abstract class Product {
      *
      * @param uuid the unique identifier of the product
      * @param name the name of the product
-     * @param iconPath the path to the product's icon
      * @param price the price of the product
      * @param cost the cost of the product
      * @param stock the stock quantity of the product
      * @param company the company associated with the product
      * @throws IllegalArgumentException if any of the input values are invalid
      */
-    public Product(String uuid, String name, String iconPath, double price, double cost, int stock, Company company) {
+    public Product(String uuid, String name, double price, double cost, int stock, Company company) {
         try {
             this.uuid = uuid;
             if (name == null) {
@@ -52,7 +50,6 @@ public abstract class Product {
                 }
             }
             this.name = name;
-            this.iconPath = iconPath;
 
             if (price < 0 || cost < 0 || stock < 0) {
                 throw new IllegalArgumentException("No negative values allowed.");
@@ -110,34 +107,6 @@ public abstract class Product {
         try {
             if (productRepositoryImplementation.updateProductNameByUUID(getUuid(), getName())) {
                 this.name = name;
-                return true;
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
-    }
-
-    /**
-     * Returns the icon path of the product.
-     *
-     * @return the icon path of the product
-     */
-    public String getIconPath() {
-        return iconPath;
-    }
-
-    /**
-     * Updates the icon path of the product.
-     *
-     * @param iconPath the new icon path of the product
-     * @return {@code true} if the update was successful, {@code false}
-     * otherwise
-     */
-    public boolean updateIconPath(String iconPath) {
-        try {
-            if (productRepositoryImplementation.updateProductIconPathByUUID(getUuid(), getIconPath())) {
-                this.iconPath = iconPath;
                 return true;
             }
         } catch (IllegalArgumentException e) {
@@ -301,7 +270,6 @@ public abstract class Product {
      * greater than the current stock
      */
     public boolean sell(int numberOfItems) {
-        // TODO : Remove
         try {
             if (numberOfItems < 0) {
                 throw new IllegalArgumentException("Negative items number.");
@@ -328,7 +296,6 @@ public abstract class Product {
      * @throws IllegalArgumentException if the number of items is negative
      */
     public boolean purchase(int numberOfItems) {
-        // TODO : Remove
         try {
             if (numberOfItems < 0) {
                 throw new IllegalArgumentException("Negative items number.");

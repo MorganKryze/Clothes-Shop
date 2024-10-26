@@ -1,4 +1,4 @@
-package org.example.products;
+package org.example.models;
 
 import org.example.repositories.CompanyRepositoryImplementation;
 

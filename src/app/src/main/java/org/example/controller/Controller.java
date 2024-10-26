@@ -1,20 +1,18 @@
-package org.example;
+package org.example.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.example.products.Accessories;
-import org.example.products.Clothes;
-import org.example.products.Company;
-import org.example.products.Shoes;
+import org.example.models.Accessories;
+import org.example.models.Clothes;
+import org.example.models.Company;
+import org.example.models.Shoes;
 import org.example.repositories.CompanyRepositoryImplementation;
 import org.example.repositories.ProductRepositoryImplementation;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -49,48 +47,48 @@ public class Controller implements Initializable {
         company = companyRepositoryImplementation.getCompanyByName("Clothes shop");
 
         liste_habits = new ArrayList<>(init_liste_habits());
-        try {
-            for (int i = 0; i < init_liste_habits().size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
-                HBox CardLayout = fxmlLoader.load();
-                ProductController miniccontrollerbut = fxmlLoader.getController();
-                miniccontrollerbut.setData(init_liste_habits().get(i), foot, company);
-                boite_habits.getChildren().add(CardLayout);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     for (int i = 0; i < init_liste_habits().size(); i++) {
+        //         FXMLLoader fxmlLoader = new FXMLLoader();
+        //         fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
+        //         HBox CardLayout = fxmlLoader.load();
+        //         ProductController miniccontrollerbut = fxmlLoader.getController();
+        //         miniccontrollerbut.setData(init_liste_habits().get(i), foot, company);
+        //         boite_habits.getChildren().add(CardLayout);
+        //     }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
-        liste_accessoires = new ArrayList<>(init_liste_accessoires());
-        try {
-            for (int i = 0; i < init_liste_accessoires().size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
-                HBox CardLayout = fxmlLoader.load();
-                ProductController miniccontrollerbut = fxmlLoader.getController();
-                miniccontrollerbut.setData(init_liste_accessoires().get(i), foot, company);
-                boite_accessoires.getChildren().add(CardLayout);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // liste_accessoires = new ArrayList<>(init_liste_accessoires());
+        // try {
+        //     for (int i = 0; i < init_liste_accessoires().size(); i++) {
+        //         FXMLLoader fxmlLoader = new FXMLLoader();
+        //         fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
+        //         HBox CardLayout = fxmlLoader.load();
+        //         ProductController miniccontrollerbut = fxmlLoader.getController();
+        //         miniccontrollerbut.setData(init_liste_accessoires().get(i), foot, company);
+        //         boite_accessoires.getChildren().add(CardLayout);
+        //     }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
-        liste_chaussures = new ArrayList<>(init_liste_chaussures());
-        try {
-            for (int i = 0; i < init_liste_chaussures().size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
-                HBox CardLayout = fxmlLoader.load();
-                ProductController miniccontrollerbut = fxmlLoader.getController();
-                miniccontrollerbut.setData(init_liste_chaussures().get(i), foot, company);
-                boite_chaussures.getChildren().add(CardLayout);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // liste_chaussures = new ArrayList<>(init_liste_chaussures());
+        // try {
+        //     for (int i = 0; i < init_liste_chaussures().size(); i++) {
+        //         FXMLLoader fxmlLoader = new FXMLLoader();
+        //         fxmlLoader.setLocation(getClass().getResource("view/Product.fxml"));
+        //         HBox CardLayout = fxmlLoader.load();
+        //         ProductController miniccontrollerbut = fxmlLoader.getController();
+        //         miniccontrollerbut.setData(init_liste_chaussures().get(i), foot, company);
+        //         boite_chaussures.getChildren().add(CardLayout);
+        //     }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
-        foot.setText(company.toString());
+        // foot.setText(company.toString());
     }
 
     public void updatetxt() {

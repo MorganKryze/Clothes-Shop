@@ -1,4 +1,4 @@
-package org.example.products;
+package org.example.models;
 
 import org.example.interfaces.Discountable;
 import org.example.repositories.ProductRepositoryImplementation;
@@ -23,7 +23,6 @@ public class Shoes extends Product implements Discountable {
      *
      * @param uuid     the unique identifier of the product
      * @param name     the name of the product
-     * @param iconPath the path to the product's icon
      * @param price    the price of the product
      * @param cost     the cost of the product
      * @param stock    the stock quantity of the product
@@ -31,9 +30,9 @@ public class Shoes extends Product implements Discountable {
      * @param shoeSize the size of the shoes
      * @throws IllegalArgumentException if the shoe size is invalid
      */
-    public Shoes(String uuid, String name, String iconPath, double price, double cost, int stock, Company company,
+    public Shoes(String uuid, String name, double price, double cost, int stock, Company company,
             int shoeSize) {
-        super(uuid, name, iconPath, price, cost, stock, company);
+        super(uuid, name, price, cost, stock, company);
         try {
             if (!isSizeValid(shoeSize)) {
                 throw new IllegalArgumentException("wrong size!");
