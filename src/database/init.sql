@@ -1,20 +1,20 @@
 CREATE TABLE Company (
     name VARCHAR(255) PRIMARY KEY,
     capital INTEGER NOT NULL,
-    income INTEGER NOT NULL,
-    costs INTEGER NOT NULL,
+    income DOUBLE PRECISION NOT NULL,
+    costs DOUBLE PRECISION NOT NULL,
     is_discount_enabled BOOLEAN NOT NULL DEFAULT FALSE
 );
 INSERT INTO Company (name, capital, income, costs)
-VALUES ('Clothes shop', 100000, 0, 0);
+VALUES ('Clothes shop', 100000, 0.0, 0.0);
 CREATE TABLE Product (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
     icon_path VARCHAR(255),
     category VARCHAR(255),
-    price INTEGER NOT NULL,
-    cost INTEGER NOT NULL,
+    price DOUBLE PRECISION NOT NULL,
+    cost DOUBLE PRECISION NOT NULL,
     stock INTEGER NOT NULL,
     clothing_size INTEGER,
     shoe_size INTEGER,
@@ -37,8 +37,8 @@ VALUES (
         'Winter Dress',
         'batman.jpg',
         'clothes',
-        100,
-        50,
+        100.0,
+        50.0,
         10,
         40,
         'Clothes shop'
@@ -48,8 +48,8 @@ VALUES (
         'Professional Shirt',
         'unicorn.jpg',
         'clothes',
-        50,
-        25,
+        50.0,
+        25.0,
         10,
         38,
         'Clothes shop'
@@ -59,8 +59,8 @@ VALUES (
         'Not-Used Jean',
         'jean.jpg',
         'clothes',
-        100,
-        50,
+        100.0,
+        50.0,
         10,
         42,
         'Clothes shop'
@@ -80,8 +80,8 @@ VALUES (
         'Cheap Little Clock',
         'Rolex.png',
         'accessories',
-        100,
-        50,
+        100.0,
+        50.0,
         10,
         'Clothes shop'
     ),
@@ -90,8 +90,8 @@ VALUES (
         'Portable Parachute',
         'parachute.jpg',
         'accessories',
-        50,
-        25,
+        50.0,
+        25.0,
         10,
         'Clothes shop'
     ),
@@ -100,8 +100,8 @@ VALUES (
         'Sunglasses',
         'sunglasses.jpg',
         'accessories',
-        100,
-        50,
+        100.0,
+        50.0,
         10,
         'Clothes shop'
     );
@@ -121,8 +121,8 @@ VALUES (
         'Classy shoe',
         'ffs.jpg',
         'shoes',
-        100,
-        50,
+        100.0,
+        50.0,
         10,
         40,
         'Clothes shop'
@@ -132,8 +132,8 @@ VALUES (
         'Work Shoe',
         'work.jpg',
         'shoes',
-        50,
-        25,
+        50.0,
+        25.0,
         10,
         38,
         'Clothes shop'
@@ -143,8 +143,8 @@ VALUES (
         'Aerodynamic shoe',
         'aero.jpg',
         'shoes',
-        100,
-        50,
+        100.0,
+        50.0,
         10,
         42,
         'Clothes shop'
