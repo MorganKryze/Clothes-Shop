@@ -35,7 +35,7 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the capital of the company
      */
-    public String getCompanyCapitalByName(String name);
+    public int getCompanyCapitalByName(String name);
 
     /**
      * Updates the capital of a company.
@@ -52,7 +52,7 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the income of the company
      */
-    public String getCompanyIncomeByName(String name);
+    public double getCompanyIncomeByName(String name);
 
     /**
      * Updates the income of a company.
@@ -69,7 +69,7 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the costs of the company
      */
-    public String getCompanyCostsByName(String name);
+    public double getCompanyCostsByName(String name);
 
     /**
      * Updates the costs of a company.
@@ -86,7 +86,7 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the discount status of the company
      */
-    public String getCompanyDiscountStatusByName(String name);
+    public boolean getCompanyDiscountStatusByName(String name);
 
     /**
      * Updates the discount status of a company.

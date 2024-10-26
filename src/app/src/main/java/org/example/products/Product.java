@@ -1,6 +1,5 @@
 package org.example.products;
 
-import org.example.repositories.CompanyRepositoryImplementation;
 import org.example.repositories.ProductRepositoryImplementation;
 
 /**
@@ -293,22 +292,24 @@ public abstract class Product {
      *                                  greater than the current stock
      */
     public boolean sell(int numberOfItems) {
-        try {
-            if (numberOfItems < 0) {
-                throw new IllegalArgumentException("Negative items number.");
-            } else if (numberOfItems > this.stock) {
-                throw new IllegalArgumentException("Not enough items in stock.");
-            }
-            if (ProductRepositoryImplementation.removeFromProductStockByUUID(getUuid(), numberOfItems)) {
-                removeFromStock(numberOfItems);
-            }
-            if (CompanyRepositoryImplementation.updateCompanyIncomeByName(getCompany().getName(), numberOfItems * getPrice())) {
-                getCompany().addIncome(numberOfItems * getPrice());
-            }
-            return true;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        // TODO : Remove
+        // try {
+        //     if (numberOfItems < 0) {
+        //         throw new IllegalArgumentException("Negative items number.");
+        //     } else if (numberOfItems > getStock()) {
+        //         throw new IllegalArgumentException("Not enough items in stock.");
+        //     }
+
+        //     if (ProductRepositoryImplementation.removeFromProductStockByUUID(uuid, numberOfItems)) {
+        //         removeFromStock(numberOfItems);
+        //     }
+        //     if (CompanyRepositoryImplementation.updateCompanyIncomeByName(getCompany().getName(), numberOfItems * getPrice())) {
+        //         getCompany().addIncome(numberOfItems * getPrice());
+        //     }
+        //     return true;
+        // } catch (IllegalArgumentException e) {
+        //     System.out.println(e.getMessage());
+        // }
         return false;
     }
 
@@ -320,20 +321,21 @@ public abstract class Product {
      * @throws IllegalArgumentException if the number of items is negative
      */
     public boolean purchase(int numberOfItems) {
-        try {
-            if (numberOfItems < 0) {
-                throw new IllegalArgumentException("Negative items number.");
-            }
-            if (ProductRepositoryImplementation.addToProductStockByUUID(uuid, numberOfItems)) {
-                addToStock(numberOfItems);
-            }
-            if (CompanyRepositoryImplementation.updateCompanyCostsByName(getCompany().getName(), numberOfItems * getCost())) {
-                getCompany().addIncome(numberOfItems * getCost());
-            }
-            return true;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        // TODO : Remove
+        // try {
+        //     if (numberOfItems < 0) {
+        //         throw new IllegalArgumentException("Negative items number.");
+        //     }
+        //     if (ProductRepositoryImplementation.addToProductStockByUUID(uuid, numberOfItems)) {
+        //         addToStock(numberOfItems);
+        //     }
+        //     if (CompanyRepositoryImplementation.updateCompanyCostsByName(getCompany().getName(), numberOfItems * getCost())) {
+        //         getCompany().addIncome(numberOfItems * getCost());
+        //     }
+        //     return true;
+        // } catch (IllegalArgumentException e) {
+        //     System.out.println(e.getMessage());
+        // }
         return false;
     }
 

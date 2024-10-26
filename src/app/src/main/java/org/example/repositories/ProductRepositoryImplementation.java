@@ -16,6 +16,8 @@ public class ProductRepositoryImplementation {
     private static final String USER = "postgres";
     private static final String PASSWORD = "gSswtP@jiWjArvTY**15ALjasSzOVgE!iENWz9y0Ip5&JSw^";
 
+    public static CompanyRepositoryImplementation companyRepositoryImplementation = new CompanyRepositoryImplementation();
+
     // public static boolean CtreateProduct(String id, String name, String iconPath,
     // int price, int cost, int stock,
     // String company, String category, int shoeSize, int clothingSize) {
@@ -62,7 +64,7 @@ public class ProductRepositoryImplementation {
                         resultSet.getDouble("price"),
                         resultSet.getDouble("cost"),
                         resultSet.getInt("stock"),
-                        CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
+                        companyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
                         resultSet.getInt("clothing_size"));
 
                 resultSet.close();
@@ -92,7 +94,7 @@ public class ProductRepositoryImplementation {
                         resultSet.getDouble("price"),
                         resultSet.getDouble("cost"),
                         resultSet.getInt("stock"),
-                        CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
+                        companyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
                         resultSet.getInt("shoe_size"));
 
                 resultSet.close();
@@ -122,7 +124,7 @@ public class ProductRepositoryImplementation {
                         resultSet.getDouble("price"),
                         resultSet.getDouble("cost"),
                         resultSet.getInt("stock"),
-                        CompanyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")));
+                        companyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")));
 
                 resultSet.close();
                 return accessories;

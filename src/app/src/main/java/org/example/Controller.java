@@ -1,11 +1,5 @@
 package org.example;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +12,12 @@ import org.example.products.Company;
 import org.example.products.Shoes;
 import org.example.repositories.CompanyRepositoryImplementation;
 import org.example.repositories.ProductRepositoryImplementation;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
 public class Controller implements Initializable {
 
@@ -39,7 +39,8 @@ public class Controller implements Initializable {
     @FXML
     private Label foot;
 
-    public static Company company = CompanyRepositoryImplementation.getCompanyByName("Clothes shop");
+    public static CompanyRepositoryImplementation companyRepositoryImplementation = new CompanyRepositoryImplementation();
+    public static final Company company = companyRepositoryImplementation.getCompanyByName("Clothes shop");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
