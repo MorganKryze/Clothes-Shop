@@ -8,6 +8,8 @@ import org.example.repository.CompanyRepositoryImplementation;
 import org.example.repository.ProductRepositoryImplementation;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -51,6 +53,9 @@ public class MainController {
     @FXML
     private TableColumn<Product, Void> marketColumn;
 
+    @FXML
+    private TableColumn<Product, Void> actionsColumn;
+
     private final ProductRepositoryImplementation productRepository = new ProductRepositoryImplementation();
     private final CompanyRepositoryImplementation companyRepository = new CompanyRepositoryImplementation();
 
@@ -89,10 +94,45 @@ public class MainController {
                 } else {
                     Product product = productTable.getItems().get(getIndex());
                     if (product != null) {
-                        HBox hbox = new HBox(sellButton, buyButton);
+                        HBox hbox = new HBox(5, sellButton, buyButton);
                         setGraphic(hbox);
                     } else {
-                        setGraphic(null);  
+                        setGraphic(null);
+                    }
+                }
+            }
+
+        });
+        actionsColumn.setCellFactory((TableColumn<Product, Void> param) -> new TableCell<Product, Void>() {
+            private final Button editButton = new Button("Edit");
+            private final Button delButton = new Button("Del");
+
+            {
+                editButton.getStyleClass().add("button-edit");
+                delButton.getStyleClass().add("button-delete");
+                editButton.setOnAction(event -> {
+                    int index = getIndex();
+                    handleEditProduct(index);
+                });
+                delButton.setOnAction(event -> {
+                    int index = getIndex();
+                    handleDeleteProduct(index);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || getIndex() < 0) {
+                    setGraphic(null);
+                } else {
+                    Product product = productTable.getItems().get(getIndex());
+                    if (product != null) {
+                        HBox hbox = new HBox(5, editButton, delButton);
+                        setGraphic(hbox);
+                    } else {
+                        setGraphic(null);
                     }
                 }
             }
@@ -138,7 +178,9 @@ public class MainController {
     @SuppressWarnings("unused")
     private void handleToggleDefaultDiscount() {
         Company company = companyRepository.getCompanyByName("Clothes shop");
-        company.updateDiscountEnabled();
+        if (!company.updateDiscountEnabled()) {
+            showErrorDialog("Error", "Failed to toggle discount", "The discount could not be toggled. Please try again.");
+        }
         productTable.getItems().setAll(productRepository.getAllProducts());
     }
 
@@ -147,9 +189,11 @@ public class MainController {
     private void handleBuyProduct(int index) {
         Company company = companyRepository.getCompanyByName("Clothes shop");
         Product product = productTable.getItems().get(index);
-        product.purchase(1);
-        productTable.getItems().setAll(productRepository.getAllProducts());
+        if (!product.purchase(1)) {
+            showErrorDialog("Error", "Failed to buy product", "The product could not be bought. Please try again.");
+        }
         companyInfoLabel.setText(company.toString());
+        productTable.getItems().setAll(productRepository.getAllProducts());
     }
 
     @FXML
@@ -157,10 +201,35 @@ public class MainController {
     private void handleSellProduct(int index) {
         Company company = companyRepository.getCompanyByName("Clothes shop");
         Product product = productTable.getItems().get(index);
-        product.sell(1);
-        productTable.getItems().setAll(productRepository.getAllProducts());
+        if (!product.sell(1)) {
+            showErrorDialog("Error", "Failed to sell product", "The product could not be sold. Please try again if the stock is not empty.");
+        }
         companyInfoLabel.setText(company.toString());
-        
+        productTable.getItems().setAll(productRepository.getAllProducts());
+    }
+
+    @FXML
+    @SuppressWarnings("unused")
+    private void handleEditProduct(int index) {
+        System.out.println("Edit product at index " + index);
+    }
+
+    @FXML
+    @SuppressWarnings("unused")
+    private void handleDeleteProduct(int index) {
+        Product product = productTable.getItems().get(index);
+        if (!productRepository.deleteProductByUUID(product.getUuid())) {
+            showErrorDialog("Error", "Failed to delete product", "The product could not be deleted. Please try again.");
+        }
+        productTable.getItems().setAll(productRepository.getAllProducts());
+    }
+
+    private void showErrorDialog(String title, String header, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

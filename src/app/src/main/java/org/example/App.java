@@ -16,7 +16,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/homescreen.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 1000, 800);
+        Scene scene = new Scene(root, 1100, 800);
         scene.getStylesheets().add(App.class.getResource("styles/default.css").toExternalForm());
         primaryStage.setTitle("Women Shop");
         primaryStage.setScene(scene);

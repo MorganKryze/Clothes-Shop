@@ -108,7 +108,7 @@ public class Company {
      * @return the capital of the company
      */
     public double getCapital() {
-        return capital;
+        return companyRepositoryImplementation.getCompanyCapitalByName(getName());
     }
 
     /**
@@ -138,7 +138,7 @@ public class Company {
      * @return the income of the company
      */
     public double getIncome() {
-        return income;
+        return companyRepositoryImplementation.getCompanyIncomeByName(getName());
     }
 
     /**
@@ -186,7 +186,7 @@ public class Company {
      * @return the costs of the company
      */
     public double getCosts() {
-        return costs;
+        return companyRepositoryImplementation.getCompanyCostsByName(getName());
     }
 
     /**

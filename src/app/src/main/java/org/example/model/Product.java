@@ -351,15 +351,11 @@ public class Product implements Discountable {
      */
     public boolean sell(int numberOfItems) {
         try {
-            if (numberOfItems < 0) {
-                throw new IllegalArgumentException("Negative items number.");
-            } else if (numberOfItems > getStock()) {
-                throw new IllegalArgumentException("Not enough items in stock.");
-            }
-
-            if (removeFromStock(numberOfItems)) {
-                getCompany().addIncome(numberOfItems * getPrice());
-                return true;
+            if (isPositive(numberOfItems) && numberOfItems <= getStock()) {
+                if (removeFromStock(numberOfItems)) {
+                    getCompany().addIncome(numberOfItems * getPrice());
+                    return true;
+                }
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

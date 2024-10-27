@@ -31,3 +31,20 @@
     -fx-padding: 10 10 10 10;
     -fx-spacing: 10;
 }
+.button-edit {
+    -fx-background-color: #4CAF50; /* Green background */
+    -fx-text-fill: white; /* White text */
+}
+
+.button-edit:hover {
+    -fx-background-color: #45a049; /* Green background */
+}
+
+.button-delete {
+    -fx-background-color: #f44336; /* Red background */
+    -fx-text-fill: white; /* White text */
+}
+
+.button-delete:hover {
+    -fx-background-color: #da190b; /* Red background */
+}

@@ -18,9 +18,8 @@
             <TableColumn text="Stock" fx:id="stockColumn" />
             <TableColumn text="Clothing Size" fx:id="clothingSizeColumn" />
             <TableColumn text="Shoe Size" fx:id="shoeSizeColumn" />
-            <TableColumn text="Market" fx:id="marketColumn"/>
-            
-
+            <TableColumn text="Market" fx:id="marketColumn" />
+            <TableColumn text="Actions" fx:id="actionsColumn" />
         </columns>
     </TableView>
     <HBox>
