@@ -34,9 +34,24 @@ This directory contains the documentation of the project including this very fil
 
 This directory contains the source code for the JavaFX application.
 
+
+
 ## `src/database`
 
 This directory contains the files needed to set up the postgres database.
+
+### `java`
+
+This directory contains the Java source code of the app:
+
+- `org.example.controller`: Contains the controller for the JavaFX application.
+- `org.example.model`: Contains the models (Company and Product).
+- `org.example.repositories`: Contains the callable endpoint to query the database.
+- `org.example`: Contains the starting point of the app.
+
+### `resources`
+
+This directory contains the fxml files for the JavaFX application and the css file for styling.
 
 ### `.env`
 

@@ -51,12 +51,6 @@ Go to the project directory:
 cd Clothes-Shop/src/
 ```
 
-Install the dependencies:
-
-```bash
-gradle build
-```
-
 Move to the database directory:
 
 ```bash
@@ -69,10 +63,21 @@ Launch the postgres database:
 docker-compose up -d
 ```
 
-Finally, run the project:
+Move back to the project directory:
 
 ```bash
 cd ../
+```
+
+Install the dependencies:
+
+```bash
+gradle build
+```
+
+Finally, run the project:
+
+```bash
 gradle run
 ```
 
@@ -86,8 +91,6 @@ gradle run
 
 ### Future improvements
 
-- Link the backend with the frontend.
-- Add discount button.
 - Add number selector.
 
 ### License

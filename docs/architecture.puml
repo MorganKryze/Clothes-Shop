@@ -1,10 +1,9 @@
 @startuml architecture
 
 entity Product {
-    + id: UUID
+    + id: Integer
     + name: String
     + description: String
-    + icon_path: String
     + category: String
     + price: Integer
     + cost: Integer
