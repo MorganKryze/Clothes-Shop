@@ -507,7 +507,7 @@ public class Product implements Discountable {
      */
     @Override
     public String toString() {
-        return String.format("Purchase_price : %s€ \nsell_price : %s€ \nstock : %s",
-                getPrice(), getCost(), getStock());
+        return String.format("Product{uuid=%d, name='%s', category='%s', price=%.2f, cost=%.2f, stock=%d, company=%s, clothingSize=%d, shoeSize=%d}",
+                uuid, name, category, price, cost, stock, company.getName(), clothingSize, shoeSize);
     }
 }

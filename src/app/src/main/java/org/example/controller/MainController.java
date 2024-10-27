@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import java.util.Arrays;
+
 import org.example.model.Company;
 import org.example.model.Product;
 import org.example.repository.CompanyRepositoryImplementation;
@@ -67,17 +69,40 @@ public class MainController {
     }
 
     @FXML
+    @SuppressWarnings("unused")
     private void handleAddProduct() {
-        // Implement the logic for adding a new product
+        Product[] allProducts = productRepository.getAllProducts();
+
+        int newUUID = 1;
+        if (allProducts.length > 0) {
+            int highestUUID = Arrays.stream(allProducts)
+                    .filter(product -> product != null)
+                    .mapToInt(Product::getUuid)
+                    .max()
+                    .orElse(0);
+            newUUID = highestUUID + 1;
+        }
+
+        Product newProduct = new Product(
+                newUUID,
+                "New Product",
+                "accessories",
+                0.0,
+                0.0,
+                0,
+                companyRepository.getCompanyByName("Clothes shop"),
+                0,
+                0
+        );
+        productRepository.createProduct(newProduct);
+        productTable.getItems().setAll(productRepository.getAllProducts());
     }
 
     @FXML
-    private void handleEditProduct() {
-        // Implement the logic for editing an existing product
-    }
-
-    @FXML
-    private void handleDeleteProduct() {
-        // Implement the logic for deleting a product
+    @SuppressWarnings("unused")
+    private void handleToggleDefaultDiscount() {
+        Company company = companyRepository.getCompanyByName("Clothes shop");
+        company.updateDiscountEnabled();
+        productTable.getItems().setAll(productRepository.getAllProducts());
     }
 }

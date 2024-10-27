@@ -21,20 +21,20 @@ public class ProductRepositoryImplementation implements ProductRepository {
 
     @Override
     public boolean createProduct(Product product) {
-        String query = "INSERT INTO Product (id, name, price, cost, stock, company_name, category, shoe_size, clothing_size) VALUES (?, ?,  ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Product (id, name, category, price, cost, stock, company_name, shoe_size, clothing_size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(URL, USER,
                 PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, product.getUuid());
             preparedStatement.setString(2, product.getName());
+            preparedStatement.setString(3, product.getCategory());
             preparedStatement.setDouble(4, product.getPrice());
             preparedStatement.setDouble(5, product.getCost());
             preparedStatement.setInt(6, product.getStock());
             preparedStatement.setString(7, product.getCompany().getName());
-            preparedStatement.setString(8, product.getCategory());
-            preparedStatement.setInt(9, product.getShoeSize());
-            preparedStatement.setInt(10, product.getClothingSize());
+            preparedStatement.setInt(8, product.getShoeSize());
+            preparedStatement.setInt(9, product.getClothingSize());
             preparedStatement.executeUpdate();
             return true;
 
