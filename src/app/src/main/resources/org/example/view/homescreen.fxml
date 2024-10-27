@@ -25,7 +25,7 @@
     <HBox>
         <HBox fx:id="buttonContainer" styleClass="button-container">
             <Button text="Add Product" onAction="#handleAddProduct" />
-            <Button text="Toggle Default Discount" onAction="#handleToggleDefaultDiscount" />
+            <Button text="Toggle Discount" onAction="#handleToggleDefaultDiscount" />
         </HBox>
         <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
             <Label fx:id="companyInfoLabel" />

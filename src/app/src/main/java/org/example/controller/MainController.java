@@ -11,11 +11,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class MainController {
@@ -211,7 +215,73 @@ public class MainController {
     @FXML
     @SuppressWarnings("unused")
     private void handleEditProduct(int index) {
-        System.out.println("Edit product at index " + index);
+        Product product = productTable.getItems().get(index);
+        if (product == null) {
+            showErrorDialog("Error", "Product not found", "The selected product could not be found.");
+            return;
+        }
+
+        Dialog<Product> dialog = new Dialog<>();
+        dialog.setTitle("Edit Product");
+        dialog.setHeaderText("Edit the product details");
+
+        ButtonType updateButtonType = new ButtonType("Update", ButtonType.OK.getButtonData());
+        dialog.getDialogPane().getButtonTypes().addAll(updateButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        TextField nameField = new TextField(product.getName());
+        TextField priceField = new TextField(String.valueOf(product.getPrice()));
+        TextField costField = new TextField(String.valueOf(product.getCost()));
+        TextField clothingSizeField = new TextField(String.valueOf(product.getClothingSize()));
+        TextField shoeSizeField = new TextField(String.valueOf(product.getShoeSize()));
+
+        grid.add(new Label("Name:"), 0, 0);
+        grid.add(nameField, 1, 0);
+        grid.add(new Label("Price:"), 0, 1);
+        grid.add(priceField, 1, 1);
+        grid.add(new Label("Cost:"), 0, 2);
+        grid.add(costField, 1, 2);
+        grid.add(new Label("Clothing Size:"), 0, 3);
+        grid.add(clothingSizeField, 1, 3);
+        grid.add(new Label("Shoe Size:"), 0, 4);
+        grid.add(shoeSizeField, 1, 4);
+
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == updateButtonType) {
+                try {
+                    String name = nameField.getText();
+                    double price = Double.parseDouble(priceField.getText());
+                    double cost = Double.parseDouble(costField.getText());
+                    int clothingSize = Integer.parseInt(clothingSizeField.getText());
+                    int shoeSize = Integer.parseInt(shoeSizeField.getText());
+
+                    product.setName(name);
+                    product.setPrice(price);
+                    product.setCost(cost);
+                    product.setClothingSize(clothingSize);
+                    product.setShoeSize(shoeSize);
+
+                    return product;
+                } catch (NumberFormatException e) {
+                    showErrorDialog("Error", "Invalid input", "Please enter valid values.");
+                }
+            }
+            return null;
+        });
+
+        java.util.Optional<Product> result = dialog.showAndWait();
+
+        result.ifPresent(updatedProduct -> {
+            if (!productRepository.updateProductByUUID(updatedProduct.getUuid(), updatedProduct)) {
+                showErrorDialog("Error", "Update failed", "The product could not be updated. Please try again.");
+            }
+            productTable.getItems().setAll(productRepository.getAllProducts());
+        });
     }
 
     @FXML

@@ -35,6 +35,15 @@ public interface ProductRepository {
     public Product[] getAllProducts();
 
     /**
+     * Updates a product by its UUID.
+     *
+     * @param uuid the UUID of the product
+     * @param product the new product
+     * @return true if the product was updated successfully, false otherwise
+     */
+    public boolean updateProductByUUID(int uuid, Product product);
+
+    /**
      * Retrieves the name of a product.
      *
      * @param uuid the UUID of the product

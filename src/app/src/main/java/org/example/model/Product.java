@@ -402,16 +402,14 @@ public class Product implements Discountable {
      * otherwise
      * @throws IllegalArgumentException if the clothing size is invalid
      */
-    public boolean updateSize(int size) {
-        if (!isClothingSizeValid(size)) {
-            System.out.println("Wrong size!");
-            return false;
-        }
+    public boolean setClothingSize(int size) {
         try {
-            if (productRepositoryImplementation.updateClothingSizeByUUID(getUuid(), size)) {
-                this.clothingSize = size;
+            if (isClothingSizeValid(size)) {
+                if (productRepositoryImplementation.updateClothingSizeByUUID(getUuid(), size)) {
+                    this.clothingSize = size;
+                    return true;
+                }
             }
-            return true;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -427,10 +425,8 @@ public class Product implements Discountable {
     private boolean isClothingSizeValid(int size) {
         if (size == 0) {
             return true;
-        } else if (size >= 34 && size <= 54 && size % 2 == 0) {
-            return true;
         } else {
-            throw new IllegalArgumentException("Invalid clothing size.");
+            return size >= 34 && size <= 54 && size % 2 == 0;
         }
     }
 
@@ -452,10 +448,8 @@ public class Product implements Discountable {
     private boolean isShoeSizeValid(int size) {
         if (size == 0) {
             return true;
-        } else if (size >= 36 && size <= 50 && size % 2 == 0) {
-            return true;
         } else {
-            throw new IllegalArgumentException("Invalid shoe size.");
+            return size >= 36 && size <= 50 && size % 2 == 0;
         }
     }
 
@@ -467,15 +461,14 @@ public class Product implements Discountable {
      * otherwise
      * @throws IllegalArgumentException if the shoe size is invalid
      */
-    public boolean updateShoeSize(int shoeSize) {
+    public boolean setShoeSize(int shoeSize) {
         try {
-            if (!isShoeSizeValid(shoeSize)) {
-                throw new IllegalArgumentException("wrong size!");
+            if (isShoeSizeValid(shoeSize)) {
+                if (productRepositoryImplementation.updateShoeSizeByUUID(getUuid(), shoeSize)) {
+                    this.shoeSize = shoeSize;
+                    return true;
+                }
             }
-            if (productRepositoryImplementation.updateShoeSizeByUUID(getUuid(), shoeSize)) {
-                this.shoeSize = shoeSize;
-            }
-            return true;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

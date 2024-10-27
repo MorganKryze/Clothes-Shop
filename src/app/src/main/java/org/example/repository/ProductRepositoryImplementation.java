@@ -74,6 +74,30 @@ public class ProductRepositoryImplementation implements ProductRepository {
     }
 
     @Override
+    public boolean updateProductByUUID(int uuid, Product product) {
+        String query = "UPDATE Product SET name = ?, category = ?, price = ?, cost = ?, stock = ?, company_name = ?, shoe_size = ?, clothing_size = ? WHERE id = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setString(2, product.getCategory());
+            preparedStatement.setDouble(3, product.getPrice());
+            preparedStatement.setDouble(4, product.getCost());
+            preparedStatement.setInt(5, product.getStock());
+            preparedStatement.setString(6, product.getCompany().getName());
+            preparedStatement.setInt(7, product.getShoeSize());
+            preparedStatement.setInt(8, product.getClothingSize());
+            preparedStatement.setInt(9, uuid);
+            preparedStatement.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
     public String getProductNameByUUID(int uuid) {
         String query = "SELECT name FROM Product WHERE id = ?";
 
