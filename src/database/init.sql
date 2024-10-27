@@ -9,7 +9,7 @@ CREATE TABLE Company (
 INSERT INTO Company (name, capital, income, costs)
 VALUES ('Clothes shop', 100000, 0.0, 0.0);
 CREATE TABLE Product (
-    id VARCHAR(255) PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     category VARCHAR(255),
     price DOUBLE PRECISION NOT NULL,
@@ -31,7 +31,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
-        '01',
+        1,
         'Winter Dress',
         'clothes',
         100.0,
@@ -41,7 +41,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        '02',
+        2,
         'Professional Shirt',
         'clothes',
         50.0,
@@ -51,7 +51,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        '03',
+        3,
         'Not-Used Jean',
         'clothes',
         100.0,
@@ -70,7 +70,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
-        '04',
+        4,
         'Cheap Little Clock',
         'accessories',
         100.0,
@@ -79,7 +79,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        '05',
+        5,
         'Portable Parachute',
         'accessories',
         50.0,
@@ -88,7 +88,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        '06',
+        6,
         'Sunglasses',
         'accessories',
         100.0,
@@ -107,7 +107,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
-        '07',
+        7,
         'Classy shoe',
         'shoes',
         100.0,
@@ -117,7 +117,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        '08',
+        8,
         'Work Shoe',
         'shoes',
         50.0,
@@ -127,7 +127,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        '09',
+        9,
         'Aerodynamic shoe',
         'shoes',
         100.0,

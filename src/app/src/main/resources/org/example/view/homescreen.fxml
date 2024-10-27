@@ -18,12 +18,15 @@
             <TableColumn text="Stock" fx:id="stockColumn" />
             <TableColumn text="Clothing Size" fx:id="clothingSizeColumn" />
             <TableColumn text="Shoe Size" fx:id="shoeSizeColumn" />
+            <TableColumn text="Market" fx:id="marketColumn"/>
+            
+
         </columns>
     </TableView>
     <HBox>
         <HBox fx:id="buttonContainer" styleClass="button-container">
             <Button text="Add Product" onAction="#handleAddProduct" />
-            <Button text="Toggle Default Dicsount" onAction="#handleToggleDefaultDiscount" />
+            <Button text="Toggle Default Discount" onAction="#handleToggleDefaultDiscount" />
         </HBox>
         <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
             <Label fx:id="companyInfoLabel" />

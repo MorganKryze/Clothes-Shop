@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import org.example.model.Product;
 
@@ -240,7 +241,6 @@ public class ProductRepositoryImplementation implements ProductRepository {
         String query = "UPDATE Product SET stock = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
             preparedStatement.setInt(1, stock);
             preparedStatement.setInt(2, uuid);
             preparedStatement.executeUpdate();
@@ -402,8 +402,9 @@ public class ProductRepositoryImplementation implements ProductRepository {
                 i++;
             }
 
-            return products;
-
+            Product[] actualProducts = Arrays.copyOf(products, i);
+            Arrays.sort(actualProducts, (p1, p2) -> Integer.compare(p1.getUuid(), p2.getUuid()));
+            return actualProducts;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

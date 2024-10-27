@@ -255,12 +255,11 @@ public class Product implements Discountable {
      */
     public boolean setStock(int items) {
         try {
-            if (items < 0) {
-                throw new IllegalArgumentException("Negative items number.");
-            }
-            if (productRepositoryImplementation.updateProductStockByUUID(getUuid(), getStock())) {
-                this.stock = items;
-                return true;
+            if (isPositive(items)) {
+                if (productRepositoryImplementation.updateProductStockByUUID(getUuid(), items)) {
+                    this.stock = items;
+                    return true;
+                }
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -278,11 +277,10 @@ public class Product implements Discountable {
      */
     public boolean addToStock(int items) {
         try {
-            if (items < 0) {
-                throw new IllegalArgumentException("Negative items number not allowed.");
-            }
-            if (setStock(getStock() + items)) {
-                return true;
+            if (isPositive(items)) {
+                if (setStock(getStock() + items)) {
+                    return true;
+                }
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -379,12 +377,11 @@ public class Product implements Discountable {
      */
     public boolean purchase(int numberOfItems) {
         try {
-            if (numberOfItems < 0) {
-                throw new IllegalArgumentException("Negative items number.");
-            }
-            if (addToStock(numberOfItems)) {
-                getCompany().addCosts(numberOfItems * getCost());
-                return true;
+            if (isPositive(numberOfItems)) {
+                if (addToStock(numberOfItems)) {
+                    getCompany().addCosts((double) numberOfItems * getCost());
+                    return true;
+                }
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
