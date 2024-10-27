@@ -108,7 +108,11 @@ public class Company {
      * @return the capital of the company
      */
     public double getCapital() {
-        return companyRepositoryImplementation.getCompanyCapitalByName(getName());
+        double query = companyRepositoryImplementation.getCompanyCapitalByName(getName());
+        if (query != capital) {
+            capital = query;
+        }
+        return capital;
     }
 
     /**
@@ -138,7 +142,11 @@ public class Company {
      * @return the income of the company
      */
     public double getIncome() {
-        return companyRepositoryImplementation.getCompanyIncomeByName(getName());
+        double query = companyRepositoryImplementation.getCompanyIncomeByName(getName());
+        if (query != income) {
+            income = query;
+        }
+        return income;
     }
 
     /**
@@ -186,7 +194,11 @@ public class Company {
      * @return the costs of the company
      */
     public double getCosts() {
-        return companyRepositoryImplementation.getCompanyCostsByName(getName());
+        double query = companyRepositoryImplementation.getCompanyCostsByName(getName());
+        if (query != costs) {
+            costs = query;
+        }
+        return costs;
     }
 
     /**
