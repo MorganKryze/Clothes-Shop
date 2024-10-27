@@ -1,0 +1,33 @@
+.table-view {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 1px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333333;
+}
+
+.button {
+    -fx-background-color: #4c7faf;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #2b5c91;
+}
+
+.label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 16px;
+    -fx-padding: 10px;
+}
+
+.button-container {
+    -fx-padding: 10 10 10 10;
+    -fx-spacing: 10;
+}

@@ -1,4 +1,4 @@
-package org.example.repositories;
+package org.example.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,9 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.example.models.Accessories;
-import org.example.models.Clothes;
-import org.example.models.Shoes;
+import org.example.model.Product;
 
 public class ProductRepositoryImplementation implements ProductRepository {
 
@@ -22,122 +20,65 @@ public class ProductRepositoryImplementation implements ProductRepository {
     }
 
     @Override
-    public boolean createProduct(String id, String name, double price, double cost, int stock, String company, String category, int shoeSize, int clothingSize) {
-        String query = "INSERT INTO Product (id, name, icon_path, price, cost, stock, company_name, category, shoe_size, clothing_size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public boolean createProduct(Product product) {
+        String query = "INSERT INTO Product (id, name, price, cost, stock, company_name, category, shoe_size, clothing_size) VALUES (?, ?,  ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(URL, USER,
                 PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, id);
-            preparedStatement.setString(2, name);
-            preparedStatement.setDouble(4, price);
-            preparedStatement.setDouble(5, cost);
-            preparedStatement.setInt(6, stock);
-            preparedStatement.setString(7, company);
-            preparedStatement.setString(8, category);
-            preparedStatement.setInt(9, shoeSize);
-            preparedStatement.setInt(10, clothingSize);
+            preparedStatement.setInt(1, product.getUuid());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setDouble(4, product.getPrice());
+            preparedStatement.setDouble(5, product.getCost());
+            preparedStatement.setInt(6, product.getStock());
+            preparedStatement.setString(7, product.getCompany().getName());
+            preparedStatement.setString(8, product.getCategory());
+            preparedStatement.setInt(9, product.getShoeSize());
+            preparedStatement.setInt(10, product.getClothingSize());
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public Clothes getClothesByUUID(String uuid) {
-        String query = "SELECT * FROM Product WHERE id = ? AND category = 'clothes'";
+    public Product getProductByUUID(int uuid) {
+        String query = "SELECT * FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                Clothes clothes = new Clothes(
-                        resultSet.getString("id"),
-                        resultSet.getString("name"),
-                        resultSet.getDouble("price"),
-                        resultSet.getDouble("cost"),
-                        resultSet.getInt("stock"),
-                        companyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
-                        resultSet.getInt("clothing_size"));
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+                double cost = resultSet.getDouble("cost");
+                int stock = resultSet.getInt("stock");
+                String companyName = resultSet.getString("company_name");
+                String category = resultSet.getString("category");
+                int shoeSize = resultSet.getInt("shoe_size");
+                int clothingSize = resultSet.getInt("clothing_size");
 
-                resultSet.close();
-                return clothes;
+                return new Product(uuid, name, category, price, cost, stock, companyRepositoryImplementation.getCompanyByName(companyName), clothingSize, shoeSize);
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return null;
     }
 
     @Override
-    public Shoes getShoesByUUID(String uuid) {
-        String query = "SELECT * FROM Product WHERE id = ? AND category = 'shoes'";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, uuid);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                Shoes shoes = new Shoes(
-                        resultSet.getString("id"),
-                        resultSet.getString("name"),
-                        resultSet.getDouble("price"),
-                        resultSet.getDouble("cost"),
-                        resultSet.getInt("stock"),
-                        companyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")),
-                        resultSet.getInt("shoe_size"));
-
-                resultSet.close();
-                return shoes;
-            }
-
-        } catch (SQLException e) {
-        }
-
-        return null;
-    }
-
-    @Override
-    public Accessories getAccessoriesByUUID(String uuid) {
-        String query = "SELECT * FROM Product WHERE id = ? AND category = 'accessories'";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, uuid);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                Accessories accessories = new Accessories(
-                        resultSet.getString("id"),
-                        resultSet.getString("name"),
-                        resultSet.getDouble("price"),
-                        resultSet.getDouble("cost"),
-                        resultSet.getInt("stock"),
-                        companyRepositoryImplementation.getCompanyByName(resultSet.getString("company_name")));
-
-                resultSet.close();
-                return accessories;
-            }
-
-        } catch (SQLException e) {
-        }
-
-        return null;
-    }
-
-    @Override
-    public String getProductNameByUUID(String uuid) {
+    public String getProductNameByUUID(int uuid) {
         String query = "SELECT name FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -145,34 +86,71 @@ public class ProductRepositoryImplementation implements ProductRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return null;
     }
 
     @Override
-    public boolean updateProductNameByUUID(String uuid, String newName) {
+    public boolean updateProductNameByUUID(int uuid, String newName) {
         String query = "UPDATE Product SET name = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, newName);
-            preparedStatement.setString(2, uuid);
+            preparedStatement.setInt(2, uuid);
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public double getProductPriceByUUID(String uuid) {
+    public String getProductCategoryByUUID(int uuid) {
+        String query = "SELECT category FROM Product WHERE id = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, uuid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("category");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public boolean updateProductCategoryByUUID(int uuid, String category) {
+        String query = "UPDATE Product SET category = ? WHERE id = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, category);
+            preparedStatement.setInt(2, uuid);
+            preparedStatement.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public double getProductPriceByUUID(int uuid) {
         String query = "SELECT price FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -180,34 +158,35 @@ public class ProductRepositoryImplementation implements ProductRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return -1;
     }
 
     @Override
-    public boolean updateProductPriceByUUID(String uuid, double price) {
+    public boolean updateProductPriceByUUID(int uuid, double price) {
         String query = "UPDATE Product SET price = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setDouble(1, price);
-            preparedStatement.setString(2, uuid);
+            preparedStatement.setInt(2, uuid);
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public double getProductCostByUUID(String uuid) {
+    public double getProductCostByUUID(int uuid) {
         String query = "SELECT cost FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -215,34 +194,35 @@ public class ProductRepositoryImplementation implements ProductRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return -1;
     }
 
     @Override
-    public boolean updateProductCostByUUID(String uuid, double cost) {
+    public boolean updateProductCostByUUID(int uuid, double cost) {
         String query = "UPDATE Product SET cost = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setDouble(1, cost);
-            preparedStatement.setString(2, uuid);
+            preparedStatement.setInt(2, uuid);
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public int getProductStockByUUID(String uuid) {
+    public int getProductStockByUUID(int uuid) {
         String query = "SELECT stock FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -250,66 +230,35 @@ public class ProductRepositoryImplementation implements ProductRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return -1;
     }
 
     @Override
-    public boolean updateProductStockByUUID(String uuid, int stock) {
+    public boolean updateProductStockByUUID(int uuid, int stock) {
         String query = "UPDATE Product SET stock = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, stock);
-            preparedStatement.setString(2, uuid);
+            preparedStatement.setInt(2, uuid);
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public boolean addToProductStockByUUID(String uuid, int amount) {
-        String query = "UPDATE Product SET stock = stock + ? WHERE id = ?";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, amount);
-            preparedStatement.setString(2, uuid);
-            preparedStatement.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean removeFromProductStockByUUID(String uuid, int amount) {
-        String query = "UPDATE Product SET stock = stock - ? WHERE id = ?";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, amount);
-            preparedStatement.setString(2, uuid);
-            preparedStatement.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public String getProductCompanyByUUID(String uuid) {
+    public String getProductCompanyByUUID(int uuid) {
         String query = "SELECT company_name FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -317,19 +266,19 @@ public class ProductRepositoryImplementation implements ProductRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return null;
     }
 
     @Override
-    public boolean updateProductCompanyByUUID(String uuid, String company) {
+    public boolean updateProductCompanyByUUID(int uuid, String company) {
         String query = "UPDATE Product SET company = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, company);
-            preparedStatement.setString(2, uuid);
+            preparedStatement.setInt(2, uuid);
             preparedStatement.executeUpdate();
             return true;
 
@@ -339,12 +288,12 @@ public class ProductRepositoryImplementation implements ProductRepository {
     }
 
     @Override
-    public int getShoeSizeByUUID(String uuid) {
+    public int getShoeSizeByUUID(int uuid) {
         String query = "SELECT shoe_size FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -352,34 +301,35 @@ public class ProductRepositoryImplementation implements ProductRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return -1;
     }
 
     @Override
-    public boolean updateShoeSizeByUUID(String uuid, int shoeSize) {
+    public boolean updateShoeSizeByUUID(int uuid, int shoeSize) {
         String query = "UPDATE Product SET shoe_size = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, shoeSize);
-            preparedStatement.setString(2, uuid);
+            preparedStatement.setInt(2, uuid);
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
-    public int getClothingSizeByUUID(String uuid) {
+    public int getClothingSizeByUUID(int uuid) {
         String query = "SELECT clothing_size FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -387,40 +337,78 @@ public class ProductRepositoryImplementation implements ProductRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return -1;
     }
 
     @Override
-    public boolean updateClothingSizeByUUID(String uuid, int clothingSize) {
+    public boolean updateClothingSizeByUUID(int uuid, int clothingSize) {
         String query = "UPDATE Product SET clothing_size = ? WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, clothingSize);
-            preparedStatement.setString(2, uuid);
+            preparedStatement.setInt(2, uuid);
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
+
         }
+        return false;
     }
 
     @Override
-    public boolean deleteProductByUUID(String uuid) {
+    public boolean deleteProductByUUID(int uuid) {
         String query = "DELETE FROM Product WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, uuid);
+            preparedStatement.setInt(1, uuid);
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
+    }
+
+    @Override
+    public Product[] getAllProducts() {
+        String query = "SELECT * FROM Product";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            Product[] products = new Product[100];
+            int i = 0;
+
+            while (resultSet.next()) {
+                int uuid = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+                double cost = resultSet.getDouble("cost");
+                int stock = resultSet.getInt("stock");
+                String companyName = resultSet.getString("company_name");
+                String category = resultSet.getString("category");
+                int shoeSize = resultSet.getInt("shoe_size");
+                int clothingSize = resultSet.getInt("clothing_size");
+
+                products[i] = new Product(uuid, name, category, price, cost, stock, companyRepositoryImplementation.getCompanyByName(companyName), clothingSize, shoeSize);
+                i++;
+            }
+
+            return products;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 
 }

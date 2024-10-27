@@ -7,15 +7,20 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("view/landing_page.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/homescreen.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 1000, 800);
+        scene.getStylesheets().add(App.class.getResource("styles/default.css").toExternalForm());
         primaryStage.setTitle("Women Shop");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 }

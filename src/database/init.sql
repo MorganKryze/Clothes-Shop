@@ -3,27 +3,26 @@ CREATE TABLE Company (
     capital INTEGER NOT NULL,
     income DOUBLE PRECISION NOT NULL,
     costs DOUBLE PRECISION NOT NULL,
-    is_discount_enabled BOOLEAN NOT NULL DEFAULT FALSE
+    is_discount_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    discount_rate DOUBLE PRECISION DEFAULT 0.5
 );
 INSERT INTO Company (name, capital, income, costs)
 VALUES ('Clothes shop', 100000, 0.0, 0.0);
 CREATE TABLE Product (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    description TEXT,
     category VARCHAR(255),
     price DOUBLE PRECISION NOT NULL,
     cost DOUBLE PRECISION NOT NULL,
     stock INTEGER NOT NULL,
-    clothing_size INTEGER,
-    shoe_size INTEGER,
+    clothing_size INTEGER DEFAULT 0,
+    shoe_size INTEGER DEFAULT 0,
     company_name VARCHAR(255) NOT NULL,
     FOREIGN KEY (company_name) REFERENCES Company(name)
 );
 INSERT INTO Product (
         id,
         name,
-        icon_path,
         category,
         price,
         cost,
@@ -32,7 +31,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
-        '40e6215d-b5c6-4896-987c-f30f3678f608',
+        '01',
         'Winter Dress',
         'clothes',
         100.0,
@@ -42,7 +41,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1c',
+        '02',
         'Professional Shirt',
         'clothes',
         50.0,
@@ -52,7 +51,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1d',
+        '03',
         'Not-Used Jean',
         'clothes',
         100.0,
@@ -64,7 +63,6 @@ VALUES (
 INSERT INTO Product (
         id,
         name,
-        icon_path,
         category,
         price,
         cost,
@@ -72,7 +70,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
-        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1e',
+        '04',
         'Cheap Little Clock',
         'accessories',
         100.0,
@@ -81,7 +79,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1f',
+        '05',
         'Portable Parachute',
         'accessories',
         50.0,
@@ -90,7 +88,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1g',
+        '06',
         'Sunglasses',
         'accessories',
         100.0,
@@ -101,7 +99,6 @@ VALUES (
 INSERT INTO Product (
         id,
         name,
-        icon_path,
         category,
         price,
         cost,
@@ -110,7 +107,7 @@ INSERT INTO Product (
         company_name
     )
 VALUES (
-        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1h',
+        '07',
         'Classy shoe',
         'shoes',
         100.0,
@@ -120,7 +117,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1i',
+        '08',
         'Work Shoe',
         'shoes',
         50.0,
@@ -130,7 +127,7 @@ VALUES (
         'Clothes shop'
     ),
     (
-        'f1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1j',
+        '09',
         'Aerodynamic shoe',
         'shoes',
         100.0,

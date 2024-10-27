@@ -1,6 +1,6 @@
-package org.example.repositories;
+package org.example.repository;
 
-import org.example.models.Company;
+import org.example.model.Company;
 
 public interface CompanyRepository {
 
@@ -35,7 +35,7 @@ public interface CompanyRepository {
      * @param name the name of the company
      * @return the capital of the company
      */
-    public int getCompanyCapitalByName(String name);
+    public double getCompanyCapitalByName(String name);
 
     /**
      * Updates the capital of a company.
@@ -44,7 +44,7 @@ public interface CompanyRepository {
      * @param capital the new capital amount
      * @return true if the update was successful, false otherwise
      */
-    public boolean updateCompanyCapitalByName(String name, int capital);
+    public boolean updateCompanyCapitalByName(String name, double capital);
 
     /**
      * Retrieves the income of a company.
@@ -95,6 +95,23 @@ public interface CompanyRepository {
      * @return true if the update was successful, false otherwise
      */
     public boolean updateDiscountStatusByName(String name);
+
+    /**
+     * Retrieves the discount rate of a company.
+     *
+     * @param name the name of the company
+     * @return the discount rate of the company
+     */
+    public double getCompanyDiscountRateByName(String name);
+
+    /**
+     * Updates the discount rate of a company.
+     *
+     * @param name the name of the company
+     * @param discountRate the new discount rate
+     * @return true if the update was successful, false otherwise
+     */
+    public boolean updateCompanyDiscountRateByName(String name, double discountRate);
 
     /**
      * Deletes a company by its name. * * @param name the name of the company

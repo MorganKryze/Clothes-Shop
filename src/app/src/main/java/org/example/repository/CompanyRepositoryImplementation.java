@@ -1,4 +1,4 @@
-package org.example.repositories;
+package org.example.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.example.models.Company;
+import org.example.model.Company;
 
 public class CompanyRepositoryImplementation implements CompanyRepository {
 
@@ -19,21 +19,23 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
 
     @Override
     public boolean createCompany(Company company) {
-        String query = "INSERT INTO Company (name, capital, income, costs, is_discount_enabled) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Company (name, capital, income, costs, is_discount_enabled, discount_rate) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, company.getName());
-            preparedStatement.setInt(2, company.getCapital());
+            preparedStatement.setDouble(2, company.getCapital());
             preparedStatement.setDouble(3, company.getIncome());
             preparedStatement.setDouble(4, company.getCosts());
             preparedStatement.setBoolean(5, company.isDiscountEnabled());
+            preparedStatement.setDouble(6, company.getDiscountRate());
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
@@ -46,16 +48,20 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             preparedStatement.setString(1, name);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    company = new Company(resultSet.getString("name"), resultSet.getInt("capital"),
-                            resultSet.getInt("income"),
-                            resultSet.getInt("costs"), resultSet.getBoolean("is_discount_enabled"));
+                    company = new Company(
+                            resultSet.getString("name"),
+                            resultSet.getDouble("capital"),
+                            resultSet.getDouble("income"),
+                            resultSet.getDouble("costs"),
+                            resultSet.getBoolean("is_discount_enabled"),
+                            resultSet.getDouble("discount_rate"));
                 }
             }
             return company;
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return company;
     }
 
@@ -71,13 +77,13 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
-
+        return false;
     }
 
     @Override
-    public int getCompanyCapitalByName(String name) {
+    public double getCompanyCapitalByName(String name) {
         String query = "SELECT capital FROM Company WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -86,29 +92,31 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getInt("capital");
+                return resultSet.getDouble("capital");
             }
 
         } catch (SQLException e) {
-        }
+            System.out.println(e.getMessage());
 
+        }
         return 0;
     }
 
     @Override
-    public boolean updateCompanyCapitalByName(String name, int capital) {
+    public boolean updateCompanyCapitalByName(String name, double capital) {
         String query = "UPDATE Company SET capital = ? WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setInt(1, capital);
+            preparedStatement.setDouble(1, capital);
             preparedStatement.setString(2, name);
             preparedStatement.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
@@ -125,6 +133,7 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
         return 0;
@@ -142,8 +151,9 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
@@ -160,8 +170,8 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return 0;
     }
 
@@ -177,8 +187,9 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     @Override
@@ -191,18 +202,18 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getBoolean("isDiscountEnabled");
+                return resultSet.getBoolean("is_discount_enabled");
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
         return false;
     }
 
     @Override
     public boolean updateDiscountStatusByName(String name) {
-        String query = "UPDATE Company SET isDiscountEnabled = NOT isDiscountEnabled WHERE name = ?";
+        String query = "UPDATE Company SET is_discount_enabled = NOT is_discount_enabled WHERE name = ?";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -211,8 +222,45 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
+    }
+
+    @Override
+    public double getCompanyDiscountRateByName(String name) {
+        String query = "SELECT discount_rate FROM Company WHERE name = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getDouble("discount_rate");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean updateCompanyDiscountRateByName(String name, double discountRate) {
+        String query = "UPDATE Company SET discount_rate = ? WHERE name = ?";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setDouble(1, discountRate);
+            preparedStatement.setString(2, name);
+            preparedStatement.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     @Override
@@ -231,7 +279,8 @@ public class CompanyRepositoryImplementation implements CompanyRepository {
             return true;
 
         } catch (SQLException e) {
-            return false;
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 }
